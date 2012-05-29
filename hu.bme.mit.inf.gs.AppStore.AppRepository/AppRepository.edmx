@@ -1,0 +1,529 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<edmx:Edmx
+    xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl" xmlns:_1="http://schemas.microsoft.com/ado/2008/09/edm"
+    xmlns:_2="http://schemas.microsoft.com/ado/2008/09/mapping/cs" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation"
+    xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx"
+    xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Version="2.0">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AppRepository.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="AppRepositoryStoreContainer">
+    <EntitySet Name="ApplicationEntitySet" EntityType="AppRepository.Store.ApplicationEntitySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ApplicationAccountEntitySet" EntityType="AppRepository.Store.ApplicationAccountEntitySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ApplicationMetadataEntitySet" EntityType="AppRepository.Store.ApplicationMetadataEntitySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ApplicationVersionEntitySet" EntityType="AppRepository.Store.ApplicationVersionEntitySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CategoryEntitySet" EntityType="AppRepository.Store.CategoryEntitySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StringfilePathsEntitySet" EntityType="AppRepository.Store.StringfilePathsEntitySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection" EntityType="AppRepository.Store.ApplicationAccountEntityApplicationEntityboughtApplicationsCollection" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ApplicationMetadataEntityCategoryEntitycategoriesCollection" EntityType="AppRepository.Store.ApplicationMetadataEntityCategoryEntitycategoriesCollection" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ApplicationEntityApplicationVersionEntitylastAcceptedVersion" Association="AppRepository.Store.ApplicationEntityApplicationVersionEntitylastAcceptedVersion">
+      <End Role="ApplicationEntity" EntitySet="ApplicationEntitySet" />
+      <End Role="ApplicationVersionEntity" EntitySet="ApplicationVersionEntitySet" />
+    </AssociationSet>
+    <AssociationSet Name="ApplicationEntityApplicationVersionEntitylastCommitedVersion" Association="AppRepository.Store.ApplicationEntityApplicationVersionEntitylastCommitedVersion">
+      <End Role="ApplicationEntity" EntitySet="ApplicationEntitySet" />
+      <End Role="ApplicationVersionEntity" EntitySet="ApplicationVersionEntitySet" />
+    </AssociationSet>
+    <AssociationSet Name="ApplicationEntityApplicationMetadataEntitylastAcceptedMetadata" Association="AppRepository.Store.ApplicationEntityApplicationMetadataEntitylastAcceptedMetadata">
+      <End Role="ApplicationEntity" EntitySet="ApplicationEntitySet" />
+      <End Role="ApplicationMetadataEntity" EntitySet="ApplicationMetadataEntitySet" />
+    </AssociationSet>
+    <AssociationSet Name="ApplicationEntityApplicationMetadataEntitylastCommitedMetadata" Association="AppRepository.Store.ApplicationEntityApplicationMetadataEntitylastCommitedMetadata">
+      <End Role="ApplicationEntity" EntitySet="ApplicationEntitySet" />
+      <End Role="ApplicationMetadataEntity" EntitySet="ApplicationMetadataEntitySet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ApplicationAccountEntityApplicationEntityboughtApplicationsCollection_ApplicationAccountEntity" Association="AppRepository.Store.FK_ApplicationAccountEntityApplicationEntityboughtApplicationsCollection_ApplicationAccountEntity">
+      <End Role="ApplicationAccountEntity" EntitySet="ApplicationAccountEntitySet" />
+      <End Role="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection" EntitySet="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ApplicationAccountEntityApplicationEntityboughtApplicationsCollection_ApplicationEntity" Association="AppRepository.Store.FK_ApplicationAccountEntityApplicationEntityboughtApplicationsCollection_ApplicationEntity">
+      <End Role="ApplicationEntity" EntitySet="ApplicationEntitySet" />
+      <End Role="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection" EntitySet="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ApplicationMetadataEntityCategoryEntitycategoriesCollection_ApplicationMetadataEntity" Association="AppRepository.Store.FK_ApplicationMetadataEntityCategoryEntitycategoriesCollection_ApplicationMetadataEntity">
+      <End Role="ApplicationMetadataEntity" EntitySet="ApplicationMetadataEntitySet" />
+      <End Role="ApplicationMetadataEntityCategoryEntitycategoriesCollection" EntitySet="ApplicationMetadataEntityCategoryEntitycategoriesCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ApplicationMetadataEntityCategoryEntitycategoriesCollection_CategoryEntity" Association="AppRepository.Store.FK_ApplicationMetadataEntityCategoryEntitycategoriesCollection_CategoryEntity">
+      <End Role="CategoryEntity" EntitySet="CategoryEntitySet" />
+      <End Role="ApplicationMetadataEntityCategoryEntitycategoriesCollection" EntitySet="ApplicationMetadataEntityCategoryEntitycategoriesCollection" />
+    </AssociationSet>
+    <AssociationSet Name="ApplicationVersionEntityStringfilePathsCollection" Association="AppRepository.Store.ApplicationVersionEntityStringfilePathsCollection">
+      <End Role="ApplicationVersionEntity" EntitySet="ApplicationVersionEntitySet" />
+      <End Role="StringfilePathsEntity" EntitySet="StringfilePathsEntitySet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ApplicationEntitySet">
+    <Key>
+      <PropertyRef Name="applicationID" />
+    </Key>
+    <Property Name="applicationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="creatorName" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ApplicationAccountEntitySet">
+    <Key>
+      <PropertyRef Name="applicationAccountID" />
+    </Key>
+    <Property Name="accountUserName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="applicationAccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ApplicationMetadataEntitySet">
+    <Key>
+      <PropertyRef Name="applicationMetadataID" />
+    </Key>
+    <Property Name="applicationMetadataID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="timestamp" Type="datetime" Nullable="true" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="price" Type="float" Nullable="true" />
+    <Property Name="description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="acceptanceResult" Type="int" Nullable="true" />
+    <Property Name="ageRestriction" Type="int" Nullable="true" />
+    <Property Name="ApplicationEntityApplicationMetadataEntitylastAcceptedMetadata_ApplicationMetadataEntity_applicationID" Type="int" Nullable="true" />
+    <Property Name="ApplicationEntityApplicationMetadataEntitylastCommitedMetadata_ApplicationMetadataEntity_applicationID" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ApplicationVersionEntitySet">
+    <Key>
+      <PropertyRef Name="applicationVersionID" />
+    </Key>
+    <Property Name="applicationVersionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="timestamp" Type="datetime" Nullable="true" />
+    <Property Name="versionString" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="acceptanceResult" Type="int" Nullable="true" />
+    <Property Name="ApplicationEntityApplicationVersionEntitylastAcceptedVersion_ApplicationVersionEntity_applicationID" Type="int" Nullable="true" />
+    <Property Name="ApplicationEntityApplicationVersionEntitylastCommitedVersion_ApplicationVersionEntity_applicationID" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="CategoryEntitySet">
+    <Key>
+      <PropertyRef Name="categoryName" />
+    </Key>
+    <Property Name="categoryName" Type="nvarchar" Nullable="false" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="StringfilePathsEntitySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="filePaths" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="ApplicationVersionEntityStringfilePathsCollection_StringfilePathsEntity_applicationVersionID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection">
+    <Key>
+      <PropertyRef Name="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection_ApplicationEntity_applicationAccountID" />
+      <PropertyRef Name="boughtApplications_applicationID" />
+    </Key>
+    <Property Name="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection_ApplicationEntity_applicationAccountID" Type="int" Nullable="false" />
+    <Property Name="boughtApplications_applicationID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ApplicationMetadataEntityCategoryEntitycategoriesCollection">
+    <Key>
+      <PropertyRef Name="ApplicationMetadataEntityCategoryEntitycategoriesCollection_CategoryEntity_applicationMetadataID" />
+      <PropertyRef Name="categories_categoryName" />
+    </Key>
+    <Property Name="ApplicationMetadataEntityCategoryEntitycategoriesCollection_CategoryEntity_applicationMetadataID" Type="int" Nullable="false" />
+    <Property Name="categories_categoryName" Type="nvarchar" Nullable="false" MaxLength="255" />
+  </EntityType>
+  <Association Name="ApplicationEntityApplicationVersionEntitylastAcceptedVersion">
+    <End Role="ApplicationEntity" Type="AppRepository.Store.ApplicationEntitySet" Multiplicity="0..1" />
+    <End Role="ApplicationVersionEntity" Type="AppRepository.Store.ApplicationVersionEntitySet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ApplicationEntity">
+        <PropertyRef Name="applicationID" />
+      </Principal>
+      <Dependent Role="ApplicationVersionEntity">
+        <PropertyRef Name="ApplicationEntityApplicationVersionEntitylastAcceptedVersion_ApplicationVersionEntity_applicationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ApplicationEntityApplicationVersionEntitylastCommitedVersion">
+    <End Role="ApplicationEntity" Type="AppRepository.Store.ApplicationEntitySet" Multiplicity="0..1" />
+    <End Role="ApplicationVersionEntity" Type="AppRepository.Store.ApplicationVersionEntitySet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ApplicationEntity">
+        <PropertyRef Name="applicationID" />
+      </Principal>
+      <Dependent Role="ApplicationVersionEntity">
+        <PropertyRef Name="ApplicationEntityApplicationVersionEntitylastCommitedVersion_ApplicationVersionEntity_applicationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ApplicationEntityApplicationMetadataEntitylastAcceptedMetadata">
+    <End Role="ApplicationEntity" Type="AppRepository.Store.ApplicationEntitySet" Multiplicity="0..1" />
+    <End Role="ApplicationMetadataEntity" Type="AppRepository.Store.ApplicationMetadataEntitySet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ApplicationEntity">
+        <PropertyRef Name="applicationID" />
+      </Principal>
+      <Dependent Role="ApplicationMetadataEntity">
+        <PropertyRef Name="ApplicationEntityApplicationMetadataEntitylastAcceptedMetadata_ApplicationMetadataEntity_applicationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ApplicationEntityApplicationMetadataEntitylastCommitedMetadata">
+    <End Role="ApplicationEntity" Type="AppRepository.Store.ApplicationEntitySet" Multiplicity="0..1" />
+    <End Role="ApplicationMetadataEntity" Type="AppRepository.Store.ApplicationMetadataEntitySet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ApplicationEntity">
+        <PropertyRef Name="applicationID" />
+      </Principal>
+      <Dependent Role="ApplicationMetadataEntity">
+        <PropertyRef Name="ApplicationEntityApplicationMetadataEntitylastCommitedMetadata_ApplicationMetadataEntity_applicationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ApplicationVersionEntityStringfilePathsCollection">
+    <End Role="ApplicationVersionEntity" Type="AppRepository.Store.ApplicationVersionEntitySet" Multiplicity="1" />
+    <End Role="StringfilePathsEntity" Type="AppRepository.Store.StringfilePathsEntitySet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ApplicationVersionEntity">
+        <PropertyRef Name="applicationVersionID" />
+      </Principal>
+      <Dependent Role="StringfilePathsEntity">
+        <PropertyRef Name="ApplicationVersionEntityStringfilePathsCollection_StringfilePathsEntity_applicationVersionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ApplicationAccountEntityApplicationEntityboughtApplicationsCollection_ApplicationAccountEntity">
+    <End Role="ApplicationAccountEntity" Type="AppRepository.Store.ApplicationAccountEntitySet" Multiplicity="1" />
+    <End Role="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection" Type="AppRepository.Store.ApplicationAccountEntityApplicationEntityboughtApplicationsCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ApplicationAccountEntity">
+        <PropertyRef Name="applicationAccountID" />
+      </Principal>
+      <Dependent Role="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection">
+        <PropertyRef Name="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection_ApplicationEntity_applicationAccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ApplicationAccountEntityApplicationEntityboughtApplicationsCollection_ApplicationEntity">
+    <End Role="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection" Type="AppRepository.Store.ApplicationAccountEntityApplicationEntityboughtApplicationsCollection" Multiplicity="*" />
+    <End Role="ApplicationEntity" Type="AppRepository.Store.ApplicationEntitySet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="ApplicationEntity">
+        <PropertyRef Name="applicationID" />
+      </Principal>
+      <Dependent Role="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection">
+        <PropertyRef Name="boughtApplications_applicationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ApplicationMetadataEntityCategoryEntitycategoriesCollection_ApplicationMetadataEntity">
+    <End Role="ApplicationMetadataEntity" Type="AppRepository.Store.ApplicationMetadataEntitySet" Multiplicity="1" />
+    <End Role="ApplicationMetadataEntityCategoryEntitycategoriesCollection" Type="AppRepository.Store.ApplicationMetadataEntityCategoryEntitycategoriesCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ApplicationMetadataEntity">
+        <PropertyRef Name="applicationMetadataID" />
+      </Principal>
+      <Dependent Role="ApplicationMetadataEntityCategoryEntitycategoriesCollection">
+        <PropertyRef Name="ApplicationMetadataEntityCategoryEntitycategoriesCollection_CategoryEntity_applicationMetadataID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ApplicationMetadataEntityCategoryEntitycategoriesCollection_CategoryEntity">
+    <End Role="ApplicationMetadataEntityCategoryEntitycategoriesCollection" Type="AppRepository.Store.ApplicationMetadataEntityCategoryEntitycategoriesCollection" Multiplicity="*" />
+    <End Role="CategoryEntity" Type="AppRepository.Store.CategoryEntitySet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="CategoryEntity">
+        <PropertyRef Name="categoryName" />
+      </Principal>
+      <Dependent Role="ApplicationMetadataEntityCategoryEntitycategoriesCollection">
+        <PropertyRef Name="categories_categoryName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <_1:Schema Namespace="AppRepository" Alias="Self">
+        <_1:EntityContainer Name="AppRepositoryContainer" annotation:LazyLoadingEnabled="true">
+          <_1:EntitySet Name="ApplicationEntitySet" EntityType="AppRepository.ApplicationEntity"/>
+          <_1:EntitySet Name="ApplicationAccountEntitySet" EntityType="AppRepository.ApplicationAccountEntity"/>
+          <_1:EntitySet Name="ApplicationMetadataEntitySet" EntityType="AppRepository.ApplicationMetadataEntity"/>
+          <_1:EntitySet Name="ApplicationVersionEntitySet" EntityType="AppRepository.ApplicationVersionEntity"/>
+          <_1:EntitySet Name="CategoryEntitySet" EntityType="AppRepository.CategoryEntity"/>
+          <_1:AssociationSet Name="ApplicationEntityApplicationVersionEntitylastAcceptedVersion"
+              Association="AppRepository.ApplicationEntityApplicationVersionEntitylastAcceptedVersion">
+            <_1:End Role="ApplicationEntity" EntitySet="ApplicationEntitySet"/>
+            <_1:End Role="ApplicationVersionEntity" EntitySet="ApplicationVersionEntitySet"/>
+          </_1:AssociationSet>
+          <_1:AssociationSet Name="ApplicationEntityApplicationVersionEntitylastCommitedVersion"
+              Association="AppRepository.ApplicationEntityApplicationVersionEntitylastCommitedVersion">
+            <_1:End Role="ApplicationEntity" EntitySet="ApplicationEntitySet"/>
+            <_1:End Role="ApplicationVersionEntity" EntitySet="ApplicationVersionEntitySet"/>
+          </_1:AssociationSet>
+          <_1:AssociationSet Name="ApplicationEntityApplicationMetadataEntitylastAcceptedMetadata"
+              Association="AppRepository.ApplicationEntityApplicationMetadataEntitylastAcceptedMetadata">
+            <_1:End Role="ApplicationEntity" EntitySet="ApplicationEntitySet"/>
+            <_1:End Role="ApplicationMetadataEntity" EntitySet="ApplicationMetadataEntitySet"/>
+          </_1:AssociationSet>
+          <_1:AssociationSet Name="ApplicationEntityApplicationMetadataEntitylastCommitedMetadata"
+              Association="AppRepository.ApplicationEntityApplicationMetadataEntitylastCommitedMetadata">
+            <_1:End Role="ApplicationEntity" EntitySet="ApplicationEntitySet"/>
+            <_1:End Role="ApplicationMetadataEntity" EntitySet="ApplicationMetadataEntitySet"/>
+          </_1:AssociationSet>
+          <_1:AssociationSet Name="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection"
+              Association="AppRepository.ApplicationAccountEntityApplicationEntityboughtApplicationsCollection">
+            <_1:End Role="ApplicationAccountEntity" EntitySet="ApplicationAccountEntitySet"/>
+            <_1:End Role="ApplicationEntity" EntitySet="ApplicationEntitySet"/>
+          </_1:AssociationSet>
+          <_1:AssociationSet Name="ApplicationMetadataEntityCategoryEntitycategoriesCollection"
+              Association="AppRepository.ApplicationMetadataEntityCategoryEntitycategoriesCollection">
+            <_1:End Role="ApplicationMetadataEntity" EntitySet="ApplicationMetadataEntitySet"/>
+            <_1:End Role="CategoryEntity" EntitySet="CategoryEntitySet"/>
+          </_1:AssociationSet>
+          <_1:AssociationSet Name="ApplicationVersionEntityStringfilePathsCollection"
+              Association="AppRepository.ApplicationVersionEntityStringfilePathsCollection">
+            <_1:End Role="ApplicationVersionEntity" EntitySet="ApplicationVersionEntitySet"/>
+            <_1:End Role="StringfilePathsEntity" EntitySet="StringfilePathsEntitySet"/>
+          </_1:AssociationSet>
+          <_1:EntitySet Name="StringfilePathsEntitySet" EntityType="AppRepository.StringfilePathsEntity"/>
+        </_1:EntityContainer>
+        <_1:EntityType Name="ApplicationEntity">
+          <_1:Key>
+            <_1:PropertyRef Name="applicationID"/>
+          </_1:Key>
+          <_1:Property Type="Int32" Name="applicationID" Nullable="false" annotation:StoreGeneratedPattern="Identity"/>
+          <_1:NavigationProperty Name="lastAcceptedVersion" ToRole="ApplicationVersionEntity"
+              FromRole="ApplicationEntity" Relationship="AppRepository.ApplicationEntityApplicationVersionEntitylastAcceptedVersion"/>
+          <_1:NavigationProperty Name="lastCommitedVersion" ToRole="ApplicationVersionEntity"
+              FromRole="ApplicationEntity" Relationship="AppRepository.ApplicationEntityApplicationVersionEntitylastCommitedVersion"/>
+          <_1:NavigationProperty Name="lastAcceptedMetadata" ToRole="ApplicationMetadataEntity"
+              FromRole="ApplicationEntity" Relationship="AppRepository.ApplicationEntityApplicationMetadataEntitylastAcceptedMetadata"/>
+          <_1:NavigationProperty Name="lastCommitedMetadata" ToRole="ApplicationMetadataEntity"
+              FromRole="ApplicationEntity" Relationship="AppRepository.ApplicationEntityApplicationMetadataEntitylastCommitedMetadata"/>
+          <_1:Property Type="String" Name="creatorName" Nullable="true"/>
+        </_1:EntityType>
+        <_1:EntityType Name="ApplicationAccountEntity">
+          <_1:Key>
+            <_1:PropertyRef Name="applicationAccountID"/>
+          </_1:Key>
+          <_1:Property Type="String" Name="accountUserName" Nullable="true"/>
+          <_1:NavigationProperty Name="boughtApplications" ToRole="ApplicationEntity"
+              FromRole="ApplicationAccountEntity" Relationship="AppRepository.ApplicationAccountEntityApplicationEntityboughtApplicationsCollection"/>
+          <_1:Property Type="Int32" Name="applicationAccountID" Nullable="false"
+              annotation:StoreGeneratedPattern="Identity"/>
+        </_1:EntityType>
+        <_1:EntityType Name="ApplicationMetadataEntity">
+          <_1:Key>
+            <_1:PropertyRef Name="applicationMetadataID"/>
+          </_1:Key>
+          <_1:Property Type="Int32" Name="applicationMetadataID" Nullable="false"
+              annotation:StoreGeneratedPattern="Identity"/>
+          <_1:Property Type="DateTime" Name="timestamp" Nullable="true"/>
+          <_1:Property Type="String" Name="name" Nullable="true"/>
+          <_1:Property Type="Double" Name="price" Nullable="true"/>
+          <_1:Property Type="String" Name="description" Nullable="true"/>
+          <_1:NavigationProperty Name="categories" ToRole="CategoryEntity" FromRole="ApplicationMetadataEntity"
+              Relationship="AppRepository.ApplicationMetadataEntityCategoryEntitycategoriesCollection"/>
+          <_1:Property Type="Int32" Name="acceptanceResult" Nullable="true"/>
+          <_1:Property Type="Int32" Name="ageRestriction" Nullable="true"/>
+        </_1:EntityType>
+        <_1:EntityType Name="ApplicationVersionEntity">
+          <_1:Key>
+            <_1:PropertyRef Name="applicationVersionID"/>
+          </_1:Key>
+          <_1:Property Type="Int32" Name="applicationVersionID" Nullable="false"
+              annotation:StoreGeneratedPattern="Identity"/>
+          <_1:Property Type="DateTime" Name="timestamp" Nullable="true"/>
+          <_1:Property Type="String" Name="versionString" Nullable="true"/>
+          <_1:Property Type="Int32" Name="acceptanceResult" Nullable="true"/>
+          <_1:NavigationProperty Name="filePaths" ToRole="StringfilePathsEntity"
+              FromRole="ApplicationVersionEntity" Relationship="AppRepository.ApplicationVersionEntityStringfilePathsCollection"/>
+        </_1:EntityType>
+        <_1:EntityType Name="StringfilePathsEntity">
+          <_1:Key>
+            <_1:PropertyRef Name="Id"/>
+          </_1:Key>
+          <_1:Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity"/>
+          <_1:Property Type="String" Name="filePaths" Nullable="true"/>
+        </_1:EntityType>
+        <_1:EntityType Name="CategoryEntity">
+          <_1:Key>
+            <_1:PropertyRef Name="categoryName"/>
+          </_1:Key>
+          <_1:Property Type="String" Name="categoryName" Nullable="false" MaxLength="255"/>
+        </_1:EntityType>
+        <_1:Association Name="ApplicationEntityApplicationVersionEntitylastAcceptedVersion">
+          <_1:End Role="ApplicationEntity" Type="AppRepository.ApplicationEntity"
+              Multiplicity="0..1"/>
+          <_1:End Role="ApplicationVersionEntity" Type="AppRepository.ApplicationVersionEntity"
+              Multiplicity="0..1"/>
+        </_1:Association>
+        <_1:Association Name="ApplicationEntityApplicationVersionEntitylastCommitedVersion">
+          <_1:End Role="ApplicationEntity" Type="AppRepository.ApplicationEntity"
+              Multiplicity="0..1"/>
+          <_1:End Role="ApplicationVersionEntity" Type="AppRepository.ApplicationVersionEntity"
+              Multiplicity="0..1"/>
+        </_1:Association>
+        <_1:Association Name="ApplicationEntityApplicationMetadataEntitylastAcceptedMetadata">
+          <_1:End Role="ApplicationEntity" Type="AppRepository.ApplicationEntity"
+              Multiplicity="0..1"/>
+          <_1:End Role="ApplicationMetadataEntity" Type="AppRepository.ApplicationMetadataEntity"
+              Multiplicity="0..1"/>
+        </_1:Association>
+        <_1:Association Name="ApplicationEntityApplicationMetadataEntitylastCommitedMetadata">
+          <_1:End Role="ApplicationEntity" Type="AppRepository.ApplicationEntity"
+              Multiplicity="0..1"/>
+          <_1:End Role="ApplicationMetadataEntity" Type="AppRepository.ApplicationMetadataEntity"
+              Multiplicity="0..1"/>
+        </_1:Association>
+        <_1:Association Name="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection">
+          <_1:End Role="ApplicationAccountEntity" Type="AppRepository.ApplicationAccountEntity"
+              Multiplicity="*"/>
+          <_1:End Role="ApplicationEntity" Type="AppRepository.ApplicationEntity"
+              Multiplicity="*"/>
+        </_1:Association>
+        <_1:Association Name="ApplicationMetadataEntityCategoryEntitycategoriesCollection">
+          <_1:End Role="ApplicationMetadataEntity" Type="AppRepository.ApplicationMetadataEntity"
+              Multiplicity="*"/>
+          <_1:End Role="CategoryEntity" Type="AppRepository.CategoryEntity" Multiplicity="*"/>
+        </_1:Association>
+        <_1:Association Name="ApplicationVersionEntityStringfilePathsCollection">
+          <_1:End Role="ApplicationVersionEntity" Type="AppRepository.ApplicationVersionEntity"
+              Multiplicity="1"/>
+          <_1:End Role="StringfilePathsEntity" Type="AppRepository.StringfilePathsEntity"
+              Multiplicity="*"/>
+        </_1:Association>
+      </_1:Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AppRepositoryStoreContainer" CdmEntityContainer="AppRepositoryContainer">
+    <EntitySetMapping Name="ApplicationEntitySet">
+      <EntityTypeMapping TypeName="IsTypeOf(AppRepository.ApplicationEntity)">
+        <MappingFragment StoreEntitySet="ApplicationEntitySet">
+          <ScalarProperty Name="applicationID" ColumnName="applicationID" />
+          <ScalarProperty Name="creatorName" ColumnName="creatorName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ApplicationAccountEntitySet">
+      <EntityTypeMapping TypeName="IsTypeOf(AppRepository.ApplicationAccountEntity)">
+        <MappingFragment StoreEntitySet="ApplicationAccountEntitySet">
+          <ScalarProperty Name="applicationAccountID" ColumnName="applicationAccountID" />
+          <ScalarProperty Name="accountUserName" ColumnName="accountUserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ApplicationMetadataEntitySet">
+      <EntityTypeMapping TypeName="IsTypeOf(AppRepository.ApplicationMetadataEntity)">
+        <MappingFragment StoreEntitySet="ApplicationMetadataEntitySet">
+          <ScalarProperty Name="applicationMetadataID" ColumnName="applicationMetadataID" />
+          <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="acceptanceResult" ColumnName="acceptanceResult" />
+          <ScalarProperty Name="ageRestriction" ColumnName="ageRestriction" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ApplicationVersionEntitySet">
+      <EntityTypeMapping TypeName="IsTypeOf(AppRepository.ApplicationVersionEntity)">
+        <MappingFragment StoreEntitySet="ApplicationVersionEntitySet">
+          <ScalarProperty Name="applicationVersionID" ColumnName="applicationVersionID" />
+          <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+          <ScalarProperty Name="versionString" ColumnName="versionString" />
+          <ScalarProperty Name="acceptanceResult" ColumnName="acceptanceResult" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CategoryEntitySet">
+      <EntityTypeMapping TypeName="IsTypeOf(AppRepository.CategoryEntity)">
+        <MappingFragment StoreEntitySet="CategoryEntitySet">
+          <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StringfilePathsEntitySet">
+      <EntityTypeMapping TypeName="IsTypeOf(AppRepository.StringfilePathsEntity)">
+        <MappingFragment StoreEntitySet="StringfilePathsEntitySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="filePaths" ColumnName="filePaths" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ApplicationEntityApplicationVersionEntitylastAcceptedVersion" TypeName="AppRepository.ApplicationEntityApplicationVersionEntitylastAcceptedVersion" StoreEntitySet="ApplicationVersionEntitySet">
+      <EndProperty Name="ApplicationEntity">
+        <ScalarProperty Name="applicationID" ColumnName="ApplicationEntityApplicationVersionEntitylastAcceptedVersion_ApplicationVersionEntity_applicationID" />
+      </EndProperty>
+      <EndProperty Name="ApplicationVersionEntity">
+        <ScalarProperty Name="applicationVersionID" ColumnName="applicationVersionID" />
+      </EndProperty>
+      <Condition ColumnName="ApplicationEntityApplicationVersionEntitylastAcceptedVersion_ApplicationVersionEntity_applicationID" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ApplicationEntityApplicationVersionEntitylastCommitedVersion" TypeName="AppRepository.ApplicationEntityApplicationVersionEntitylastCommitedVersion" StoreEntitySet="ApplicationVersionEntitySet">
+      <EndProperty Name="ApplicationEntity">
+        <ScalarProperty Name="applicationID" ColumnName="ApplicationEntityApplicationVersionEntitylastCommitedVersion_ApplicationVersionEntity_applicationID" />
+      </EndProperty>
+      <EndProperty Name="ApplicationVersionEntity">
+        <ScalarProperty Name="applicationVersionID" ColumnName="applicationVersionID" />
+      </EndProperty>
+      <Condition ColumnName="ApplicationEntityApplicationVersionEntitylastCommitedVersion_ApplicationVersionEntity_applicationID" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ApplicationEntityApplicationMetadataEntitylastAcceptedMetadata" TypeName="AppRepository.ApplicationEntityApplicationMetadataEntitylastAcceptedMetadata" StoreEntitySet="ApplicationMetadataEntitySet">
+      <EndProperty Name="ApplicationEntity">
+        <ScalarProperty Name="applicationID" ColumnName="ApplicationEntityApplicationMetadataEntitylastAcceptedMetadata_ApplicationMetadataEntity_applicationID" />
+      </EndProperty>
+      <EndProperty Name="ApplicationMetadataEntity">
+        <ScalarProperty Name="applicationMetadataID" ColumnName="applicationMetadataID" />
+      </EndProperty>
+      <Condition ColumnName="ApplicationEntityApplicationMetadataEntitylastAcceptedMetadata_ApplicationMetadataEntity_applicationID" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ApplicationEntityApplicationMetadataEntitylastCommitedMetadata" TypeName="AppRepository.ApplicationEntityApplicationMetadataEntitylastCommitedMetadata" StoreEntitySet="ApplicationMetadataEntitySet">
+      <EndProperty Name="ApplicationEntity">
+        <ScalarProperty Name="applicationID" ColumnName="ApplicationEntityApplicationMetadataEntitylastCommitedMetadata_ApplicationMetadataEntity_applicationID" />
+      </EndProperty>
+      <EndProperty Name="ApplicationMetadataEntity">
+        <ScalarProperty Name="applicationMetadataID" ColumnName="applicationMetadataID" />
+      </EndProperty>
+      <Condition ColumnName="ApplicationEntityApplicationMetadataEntitylastCommitedMetadata_ApplicationMetadataEntity_applicationID" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection" TypeName="AppRepository.ApplicationAccountEntityApplicationEntityboughtApplicationsCollection" StoreEntitySet="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection">
+      <EndProperty Name="ApplicationAccountEntity">
+        <ScalarProperty Name="applicationAccountID" ColumnName="ApplicationAccountEntityApplicationEntityboughtApplicationsCollection_ApplicationEntity_applicationAccountID" />
+      </EndProperty>
+      <EndProperty Name="ApplicationEntity">
+        <ScalarProperty Name="applicationID" ColumnName="boughtApplications_applicationID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ApplicationMetadataEntityCategoryEntitycategoriesCollection" TypeName="AppRepository.ApplicationMetadataEntityCategoryEntitycategoriesCollection" StoreEntitySet="ApplicationMetadataEntityCategoryEntitycategoriesCollection">
+      <EndProperty Name="ApplicationMetadataEntity">
+        <ScalarProperty Name="applicationMetadataID" ColumnName="ApplicationMetadataEntityCategoryEntitycategoriesCollection_CategoryEntity_applicationMetadataID" />
+      </EndProperty>
+      <EndProperty Name="CategoryEntity">
+        <ScalarProperty Name="categoryName" ColumnName="categories_categoryName" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ApplicationVersionEntityStringfilePathsCollection" TypeName="AppRepository.ApplicationVersionEntityStringfilePathsCollection" StoreEntitySet="StringfilePathsEntitySet">
+      <EndProperty Name="ApplicationVersionEntity">
+        <ScalarProperty Name="applicationVersionID" ColumnName="ApplicationVersionEntityStringfilePathsCollection_StringfilePathsEntity_applicationVersionID" />
+      </EndProperty>
+      <EndProperty Name="StringfilePathsEntity">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer>
+    <edmx:Connection>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly"/>
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="ValidateOnBuild" Value="true"/>
+        <edmx:DesignerProperty Name="EnablePluralization" Value="False"/>
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <edmx:Diagram Name="AppRepository"> </edmx:Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,15 @@
+POST	http://localhost:8004/metadata
+
+<ApplicationMetadataBoundaryEntity xmlns="http://schemas.datacontract.org/2004/07/Server">
+  <name>iSoftware</name>
+  <price>99999999</price>
+  <description>A bit expensive, but shiny and white.</description>
+  <timestamp>2012-04-08-06:00</timestamp>
+</ApplicationMetadataBoundaryEntity>
+
+<ApplicationMetadataBoundaryEntity xmlns="http://schemas.datacontract.org/2004/07/Server">
+  <name>Evil virus</name>
+  <price>0.001</price>
+  <description>Cheap and deadly.</description>
+  <timestamp>2012-04-08-06:00</timestamp>
+</ApplicationMetadataBoundaryEntity>

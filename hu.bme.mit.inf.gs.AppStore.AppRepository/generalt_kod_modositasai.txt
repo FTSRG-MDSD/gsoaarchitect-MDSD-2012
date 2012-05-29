@@ -1,0 +1,13 @@
+1. Az EDMX-en jobb klikk és Run custom tool -- legenerálja a .Desiner.cs-t az EF entitásokhoz.
+2. Azért, hogy ne dobja fel mindig az ablakot, elmentettem az .sln fájlt is, bár erre nincs szükségünk.
+3. Az EF modellbõl legeneráltam az adatbázist. (Generate Database from Model)
+
+
+
+Kézzel módosított dolgok, amiket generálni kellett volna:
+- kulcs nem lehet nvarchar(max) SQL Serveren (pl. CategoryName), ezért CategoryName maxlen 255 lett. 
+- (az AppRepositoryContainer nem túl szerencsés név, de nem neveztem át)
+- szigorú 1 helyett helyenként 0..1 kell
+	sõt, mivel két kapcsolat is van, az AppMetadata és App közt 0..1 : 0..1 kapcsolat kell, hasonlóan a Version-nél is
+- hibás az AppAccount-App kapcsolat: N:N-nek kéne lennie 1:N helyett
+- a két acceptanceResult property típusát intre változtattam stringrõl

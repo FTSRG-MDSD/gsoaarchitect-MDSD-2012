@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edmx:Edmx
+    xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl" xmlns:_1="http://schemas.microsoft.com/ado/2008/09/edm"
+    xmlns:_2="http://schemas.microsoft.com/ado/2008/09/mapping/cs" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation"
+    xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx"
+    xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Version="2.0">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CodeVerifier.Store" Alias="Self" Provider="System.Data.SqlClient"
+          ProviderManifestToken="2005">
+        <EntityContainer Name="CodeVerifierTargetContainer"> </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <_1:Schema Namespace="CodeVerifier" Alias="Self">
+        <_1:EntityContainer Name="CodeVerifierContainer" annotation:LazyLoadingEnabled="true"> </_1:EntityContainer>
+      </_1:Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <_2:Mapping Space="C-S">
+        <_2:Alias Key="CodeVerifier" Value="CodeVerifier"/>
+        <_2:Alias Key="Target" Value="CodeVerifier.Store"/>
+        <_2:EntityContainerMapping CdmEntityContainer="CodeVerifierContainer" StorageEntityContainer="CodeVerifierTargetContainer"> </_2:EntityContainerMapping>
+      </_2:Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer>
+    <edmx:Connection>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly"/>
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="ValidateOnBuild" Value="true"/>
+        <edmx:DesignerProperty Name="EnablePluralization" Value="False"/>
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <edmx:Diagram Name="CodeVerifier"> </edmx:Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

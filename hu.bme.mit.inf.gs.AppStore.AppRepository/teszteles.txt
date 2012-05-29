@@ -1,0 +1,14 @@
+GET	http://localhost:8001/applications
+PUT	http://localhost:8001/application/GSTeam
+GET	http://localhost:8001/applications -- Üres tömb, mert nincs még elfogadott alkalmazás
+PUT	http://localhost:8001/application/metadata/?id=1  -- a Data XML-t lásd lent
+PUT	http://localhost:8001/application/metadata/acceptance/?id=1&acceptance=1 -- Elfogadás
+GET	http://localhost:8001/applications
+GET	http://localhost:8001/application?id=1
+
+<ApplicationMetadataBoundaryEntity z:Id="i1" xmlns="http://schemas.datacontract.org/2004/07/AppRepository" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/">
+  <name>GS Hiperszuper Kódgenerátor</name>
+  <price>99999999</price>
+  <description>GS Hiperszuper Kódgenerátor MDSD/Szolgint tárgyakhoz</description>
+  <timestamp>2012-04-08-06:00</timestamp>
+</ApplicationMetadataBoundaryEntity>
