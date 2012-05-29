@@ -1,0 +1,57 @@
+«EXTENSION template::EntityNameExtension»
+
+«REM»Java interfaces methods«ENDREM»
+«DEFINE javaMethodInterfaceSource FOR soamodel::RestMethod-»
+        /**
+         * «this.description» 
+         *
+         «EXPAND javadocParameters FOR this-»
+         * @return «this.methodType.RESTReturnEntityName()»
+         */
+        @«httpMethod»
+        @Path("«path»")
+        @Consumes("text/plain")
+        @Produces("text/plain")
+        «EXPAND javaMethodInterfaceHeaderSource FOR this-»
+        
+«ENDDEFINE»
+«DEFINE javaMethodInterfaceSource FOR soamodel::ServiceMethod-»
+        /**
+         * Non-REST methods are not supported!
+         */
+«ENDDEFINE»
+
+
+«REM»Java class methods«ENDREM»
+«DEFINE javaMethodClassSource FOR soamodel::RestMethod-»
+  «EXPAND javaMethodClassHeaderSource FOR this-»
+«ENDDEFINE»
+«DEFINE javaMethodClassSource FOR soamodel::ServiceMethod-»
+  		/**
+         * Non-REST methods are not supported!
+         */
+«ENDDEFINE»
+
+«REM»javadoc parameter list«ENDREM»
+«DEFINE javadocParameters FOR soamodel::ServiceMethod-»
+«EXPAND javadocParameter FOREACH this.parameters SEPARATOR '\n'»
+«ENDDEFINE»
+
+«REM»javadoc parameter«ENDREM»
+«DEFINE javadocParameter FOR soamodel::Parameter-»
+         * @param «this.parameterType.entityName()-» «this.name-»
+«ENDDEFINE»
+
+«REM»Java interface methods«ENDREM»
+«DEFINE javaMethodInterfaceHeaderSource FOR soamodel::ServiceMethod-»
+        «EXPAND javaInterfaceMethodSignature FOR this»;«ENDDEFINE»
+
+«DEFINE javaMethodClassHeaderSource FOR soamodel::ServiceMethod-»
+        public «EXPAND javaClassMethodSignature FOR this» {
+                return «this.methodType.RESTReturnValue()»;
+        }
+«ENDDEFINE»
+
+«DEFINE javaInterfaceMethodSignature FOR soamodel::ServiceMethod»«this.methodType.RESTReturnEntityName()» «this.name»(«EXPAND JavaParameter::javaRESTParameterSource FOREACH this.parameters SEPARATOR ', '»)«ENDDEFINE»
+
+«DEFINE javaClassMethodSignature FOR soamodel::ServiceMethod»«this.methodType.RESTReturnEntityName()» «this.name»(«EXPAND JavaParameter::javaParameterSource FOREACH this.parameters SEPARATOR ', '»)«ENDDEFINE»

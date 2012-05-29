@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_9ExUoV5gEeGoltednZCI2A" name="model">
+  <packagedElement xmi:type="uml:Actor" xmi:id="_6CpK8F5hEeGoltednZCI2A" name="User"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="__Yh_oF5jEeGoltednZCI2A" name="Developer">
+    <generalization xmi:id="_2VuUcGCqEeGN8-JYvPE34Q" general="_6CpK8F5hEeGoltednZCI2A"/>
+    <generalization xmi:id="_zFBt0GCsEeGN8-JYvPE34Q" general="_6CpK8F5hEeGoltednZCI2A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_vTMeUF5kEeGoltednZCI2A" name="Operator">
+    <generalization xmi:id="_yf7csGCsEeGN8-JYvPE34Q" general="_6CpK8F5hEeGoltednZCI2A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_XUGygF5lEeGoltednZCI2A" name="AppRepository">
+    <packagedElement xmi:type="uml:Association" xmi:id="_GdtdIF5lEeGoltednZCI2A" name="A_üzemeltető_minőségellenőrzés" memberEnd="_GdtdIV5lEeGoltednZCI2A _GdtdJF5lEeGoltednZCI2A">
+      <ownedEnd xmi:id="_GdtdIV5lEeGoltednZCI2A" name="üzemeltető" type="_vTMeUF5kEeGoltednZCI2A" association="_GdtdIF5lEeGoltednZCI2A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GdtdIl5lEeGoltednZCI2A" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GdtdI15lEeGoltednZCI2A" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_GdtdJF5lEeGoltednZCI2A" name="minőségellenőrzés" type="_xo80wF5kEeGoltednZCI2A" association="_GdtdIF5lEeGoltednZCI2A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GdtdJV5lEeGoltednZCI2A" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GdtdJl5lEeGoltednZCI2A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_E1s9gF5lEeGoltednZCI2A" name="Decline the application">
+      <extend xmi:id="_NONbkGXvEeGMp59k_PAJFg" extendedCase="_xo80wF5kEeGoltednZCI2A" extensionLocation="_NOqHgWXvEeGMp59k_PAJFg"/>
+      <extend xmi:id="_ApSF8GXwEeGMp59k_PAJFg" extendedCase="_xo80wF5kEeGoltednZCI2A" extensionLocation="_NOqHgWXvEeGMp59k_PAJFg"/>
+      <extensionPoint xmi:id="_JtSXgF5lEeGoltednZCI2A" name="point"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_-jq-wF5kEeGoltednZCI2A" name="Verify application with automatic verification techniques"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_7Nr6YF5kEeGoltednZCI2A" name="Test application"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_2wn5MF5kEeGoltednZCI2A" name="Verify applications"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_xo80wF5kEeGoltednZCI2A" name="Control quality">
+      <include xmi:id="_Hu7NYF5lEeGoltednZCI2A" addition="_2wn5MF5kEeGoltednZCI2A"/>
+      <include xmi:id="_IU62YF5lEeGoltednZCI2A" addition="_7Nr6YF5kEeGoltednZCI2A"/>
+      <include xmi:id="_I2mAEF5lEeGoltednZCI2A" addition="_-jq-wF5kEeGoltednZCI2A"/>
+      <extend xmi:id="_JptfEF5lEeGoltednZCI2A" extendedCase="_E1s9gF5lEeGoltednZCI2A" extensionLocation="_JtSXgF5lEeGoltednZCI2A"/>
+      <extensionPoint xmi:id="_NOqHgWXvEeGMp59k_PAJFg" name="point"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_DHFlIGXwEeGMp59k_PAJFg" name="CodeVerifier"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_4gRccF5lEeGoltednZCI2A" name="AppRepository">
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_ZHQnoF5kEeGoltednZCI2A" name="Upload new application"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_ftacQF5kEeGoltednZCI2A" name="Upload new application version"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_iHfSAF5kEeGoltednZCI2A" name="Modify application metadata"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_l_vV8F5kEeGoltednZCI2A" name="A_fejlesztő_alkalmazás feltöltése" memberEnd="_l_vV8V5kEeGoltednZCI2A _l_vV9F5kEeGoltednZCI2A">
+      <ownedEnd xmi:id="_l_vV8V5kEeGoltednZCI2A" name="fejlesztő" type="__Yh_oF5jEeGoltednZCI2A" association="_l_vV8F5kEeGoltednZCI2A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_l_vV8l5kEeGoltednZCI2A" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_l_vV815kEeGoltednZCI2A" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_l_vV9F5kEeGoltednZCI2A" name="alkalmazás feltöltése" type="_ZHQnoF5kEeGoltednZCI2A" association="_l_vV8F5kEeGoltednZCI2A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_l_vV9V5kEeGoltednZCI2A" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_l_vV9l5kEeGoltednZCI2A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_nCDukF5kEeGoltednZCI2A" name="A_fejlesztő_új verzió feltöltése" memberEnd="_nCDukV5kEeGoltednZCI2A _nCDulF5kEeGoltednZCI2A">
+      <ownedEnd xmi:id="_nCDukV5kEeGoltednZCI2A" name="fejlesztő" type="__Yh_oF5jEeGoltednZCI2A" association="_nCDukF5kEeGoltednZCI2A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nCDukl5kEeGoltednZCI2A" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nCDuk15kEeGoltednZCI2A" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_nCDulF5kEeGoltednZCI2A" name="új verzió feltöltése" type="_ftacQF5kEeGoltednZCI2A" association="_nCDukF5kEeGoltednZCI2A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nCDulV5kEeGoltednZCI2A" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nCDull5kEeGoltednZCI2A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_neXQEF5kEeGoltednZCI2A" name="A_fejlesztő_metaadatok módosítása" memberEnd="_neXQEV5kEeGoltednZCI2A _neXQFF5kEeGoltednZCI2A">
+      <ownedEnd xmi:id="_neXQEV5kEeGoltednZCI2A" name="fejlesztő" type="__Yh_oF5jEeGoltednZCI2A" association="_neXQEF5kEeGoltednZCI2A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_neXQEl5kEeGoltednZCI2A" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_neXQE15kEeGoltednZCI2A" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_neXQFF5kEeGoltednZCI2A" name="metaadatok módosítása" type="_iHfSAF5kEeGoltednZCI2A" association="_neXQEF5kEeGoltednZCI2A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_neXQFV5kEeGoltednZCI2A" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_neXQFl5kEeGoltednZCI2A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_wF0nMGCrEeGN8-JYvPE34Q" name="Browse previously uploaded applications"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_1j_gEGCrEeGN8-JYvPE34Q" name="A_developer_browse previously uploaded applications" memberEnd="_1j_gEWCrEeGN8-JYvPE34Q _1j_gFGCrEeGN8-JYvPE34Q">
+      <ownedEnd xmi:id="_1j_gEWCrEeGN8-JYvPE34Q" name="developer" type="__Yh_oF5jEeGoltednZCI2A" association="_1j_gEGCrEeGN8-JYvPE34Q">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1j_gEmCrEeGN8-JYvPE34Q" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1j_gE2CrEeGN8-JYvPE34Q" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_1j_gFGCrEeGN8-JYvPE34Q" name="browse previously uploaded applications" type="_wF0nMGCrEeGN8-JYvPE34Q" association="_1j_gEGCrEeGN8-JYvPE34Q">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1j_gFWCrEeGN8-JYvPE34Q" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1j_gFmCrEeGN8-JYvPE34Q" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_HlHUoF5mEeGoltednZCI2A" name="CreditManager">
+    <packagedElement xmi:type="uml:Association" xmi:id="_KvkJUF5kEeGoltednZCI2A" name="" memberEnd="_KvkJUV5kEeGoltednZCI2A _KvkJVF5kEeGoltednZCI2A">
+      <ownedEnd xmi:id="_KvkJUV5kEeGoltednZCI2A" name="felhasználó" type="_6CpK8F5hEeGoltednZCI2A" association="_KvkJUF5kEeGoltednZCI2A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_KvkJUl5kEeGoltednZCI2A" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_KvkJU15kEeGoltednZCI2A" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_KvkJVF5kEeGoltednZCI2A" name="kreditek feltöltése" type="_x3hRsF5jEeGoltednZCI2A" association="_KvkJUF5kEeGoltednZCI2A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_KvkJVV5kEeGoltednZCI2A" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_KvkJVl5kEeGoltednZCI2A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_4jyVYF5jEeGoltednZCI2A" name="View purchase history"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_x3hRsF5jEeGoltednZCI2A" name="Buy credits"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_HCvrYGCrEeGN8-JYvPE34Q" name="Withdraw money"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_JYDV4GCrEeGN8-JYvPE34Q" name="A_withdraw money_user" memberEnd="_JYDV4WCrEeGN8-JYvPE34Q _JYDV5GCrEeGN8-JYvPE34Q">
+      <ownedEnd xmi:id="_JYDV4WCrEeGN8-JYvPE34Q" name="withdraw money" type="_HCvrYGCrEeGN8-JYvPE34Q" association="_JYDV4GCrEeGN8-JYvPE34Q">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JYDV4mCrEeGN8-JYvPE34Q" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JYDV42CrEeGN8-JYvPE34Q" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_JYDV5GCrEeGN8-JYvPE34Q" name="user" type="_6CpK8F5hEeGoltednZCI2A" association="_JYDV4GCrEeGN8-JYvPE34Q">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JYDV5WCrEeGN8-JYvPE34Q" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JYDV5mCrEeGN8-JYvPE34Q" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_dRp9kGCrEeGN8-JYvPE34Q" name="A_view purchase history_user" memberEnd="_dRp9kWCrEeGN8-JYvPE34Q _dRp9lGCrEeGN8-JYvPE34Q">
+      <ownedEnd xmi:id="_dRp9kWCrEeGN8-JYvPE34Q" name="view purchase history" type="_4jyVYF5jEeGoltednZCI2A" association="_dRp9kGCrEeGN8-JYvPE34Q">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dRp9kmCrEeGN8-JYvPE34Q" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dRp9k2CrEeGN8-JYvPE34Q" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_dRp9lGCrEeGN8-JYvPE34Q" name="user" type="_6CpK8F5hEeGoltednZCI2A" association="_dRp9kGCrEeGN8-JYvPE34Q">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dRp9lWCrEeGN8-JYvPE34Q" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dRp9lmCrEeGN8-JYvPE34Q" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_XVL7IF5mEeGoltednZCI2A" name="AppRepository">
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_8KY6kF5hEeGoltednZCI2A" name="Browse applications"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_A8A2gF5iEeGoltednZCI2A" name="View application details"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_KpY6wF5iEeGoltednZCI2A" name="A_felhasználó_alkalmazás megtekintése" memberEnd="_KpY6wV5iEeGoltednZCI2A _KpY6xF5iEeGoltednZCI2A">
+      <ownedEnd xmi:id="_KpY6wV5iEeGoltednZCI2A" name="felhasználó" type="_6CpK8F5hEeGoltednZCI2A" association="_KpY6wF5iEeGoltednZCI2A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_KpY6wl5iEeGoltednZCI2A" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_KpY6w15iEeGoltednZCI2A" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_KpY6xF5iEeGoltednZCI2A" name="alkalmazás megtekintése" type="__ditYF5hEeGoltednZCI2A" association="_KpY6wF5iEeGoltednZCI2A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_KpY6xV5iEeGoltednZCI2A" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_KpY6xl5iEeGoltednZCI2A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_MVa-wF5iEeGoltednZCI2A" name="A_felhasználó_vásárlás" memberEnd="_MVa-wV5iEeGoltednZCI2A _MVa-xF5iEeGoltednZCI2A">
+      <ownedEnd xmi:id="_MVa-wV5iEeGoltednZCI2A" name="felhasználó" type="_6CpK8F5hEeGoltednZCI2A" association="_MVa-wF5iEeGoltednZCI2A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MVa-wl5iEeGoltednZCI2A" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MVa-w15iEeGoltednZCI2A" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_MVa-xF5iEeGoltednZCI2A" name="vásárlás" type="_A8A2gF5iEeGoltednZCI2A" association="_MVa-wF5iEeGoltednZCI2A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MVa-xV5iEeGoltednZCI2A" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MVa-xl5iEeGoltednZCI2A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_JWGG4F5iEeGoltednZCI2A" name="" memberEnd="_JWGG4V5iEeGoltednZCI2A _JWGG5F5iEeGoltednZCI2A">
+      <ownedEnd xmi:id="_JWGG4V5iEeGoltednZCI2A" name="felhasználó" type="_6CpK8F5hEeGoltednZCI2A" association="_JWGG4F5iEeGoltednZCI2A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JWGG4l5iEeGoltednZCI2A" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JWGG415iEeGoltednZCI2A" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_JWGG5F5iEeGoltednZCI2A" name="böngészés" type="_8KY6kF5hEeGoltednZCI2A" association="_JWGG4F5iEeGoltednZCI2A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JWGG5V5iEeGoltednZCI2A" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JWGG5l5iEeGoltednZCI2A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_hcFDEGXvEeGMp59k_PAJFg" name="UserManager">
+      <packagedElement xmi:type="uml:UseCase" xmi:id="__ditYF5hEeGoltednZCI2A" name="Buy application"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_VX-ZoGCtEeGN8-JYvPE34Q" name="UserManager">
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_NisfcGCtEeGN8-JYvPE34Q" name="Authenticate"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_H32cgGCtEeGN8-JYvPE34Q" name="Log out"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_JYtyUGCtEeGN8-JYvPE34Q" name="A_user_log out" memberEnd="_JYtyUWCtEeGN8-JYvPE34Q _JYtyVGCtEeGN8-JYvPE34Q">
+      <ownedEnd xmi:id="_JYtyUWCtEeGN8-JYvPE34Q" name="user" type="_6CpK8F5hEeGoltednZCI2A" association="_JYtyUGCtEeGN8-JYvPE34Q">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JYtyUmCtEeGN8-JYvPE34Q" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JYtyU2CtEeGN8-JYvPE34Q" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_JYtyVGCtEeGN8-JYvPE34Q" name="log out" type="_H32cgGCtEeGN8-JYvPE34Q" association="_JYtyUGCtEeGN8-JYvPE34Q">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JYtyVWCtEeGN8-JYvPE34Q" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JYtyVmCtEeGN8-JYvPE34Q" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_HUPZIGCtEeGN8-JYvPE34Q" name="A_user_log in" memberEnd="_HUPZIWCtEeGN8-JYvPE34Q _HUPZJGCtEeGN8-JYvPE34Q">
+      <ownedEnd xmi:id="_HUPZIWCtEeGN8-JYvPE34Q" name="user" type="_6CpK8F5hEeGoltednZCI2A" association="_HUPZIGCtEeGN8-JYvPE34Q">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HUPZImCtEeGN8-JYvPE34Q" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HUPZI2CtEeGN8-JYvPE34Q" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_HUPZJGCtEeGN8-JYvPE34Q" name="log in" type="_EuiiMGCtEeGN8-JYvPE34Q" association="_HUPZIGCtEeGN8-JYvPE34Q">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HUPZJWCtEeGN8-JYvPE34Q" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HUPZJmCtEeGN8-JYvPE34Q" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_EuiiMGCtEeGN8-JYvPE34Q" name="Log in">
+      <include xmi:id="_RrVv0GCtEeGN8-JYvPE34Q" addition="_NisfcGCtEeGN8-JYvPE34Q"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_OaPUYGXwEeGMp59k_PAJFg" name="Register"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Qilg8GXwEeGMp59k_PAJFg" name="A_user_register" memberEnd="_Qilg8WXwEeGMp59k_PAJFg _Qilg9GXwEeGMp59k_PAJFg">
+    <ownedEnd xmi:id="_Qilg8WXwEeGMp59k_PAJFg" name="user" type="_6CpK8F5hEeGoltednZCI2A" association="_Qilg8GXwEeGMp59k_PAJFg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Qilg8mXwEeGMp59k_PAJFg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Qilg82XwEeGMp59k_PAJFg" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_Qilg9GXwEeGMp59k_PAJFg" name="register" type="_OaPUYGXwEeGMp59k_PAJFg" association="_Qilg8GXwEeGMp59k_PAJFg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Qilg9WXwEeGMp59k_PAJFg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Qilg9mXwEeGMp59k_PAJFg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Model>

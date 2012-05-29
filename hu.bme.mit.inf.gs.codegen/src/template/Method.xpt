@@ -1,0 +1,46 @@
+«EXTENSION template::EntityNameExtension»
+
+«REM»CSharp methods«ENDREM»
+
+«DEFINE csharpMethodInterfaceSource FOR soamodel::RestMethod-»
+	     ///<summary>
+	     /// «this.description»
+	     ///</summary>
+	     [WebInvoke(Method = "«httpMethod»", UriTemplate = "«path»")]
+         [OperationContract(Name = "«name»")]
+         «EXPAND csharpMethodInterfaceHeaderSource FOR this-»
+           
+«ENDDEFINE»
+
+«DEFINE csharpMethodInterfaceSource FOR soamodel::ServiceMethod-»
+	     ///<summary>
+	     /// «this.description»
+	     ///</summary>
+	     [OperationContract(Name = "«name»")]
+         «EXPAND csharpMethodInterfaceHeaderSource FOR this-»
+         
+«ENDDEFINE»
+
+«DEFINE csharpMethodInterfaceHeaderSource FOR soamodel::ServiceMethod-»
+         «this.methodType.entityFullBoundaryCSharpName()» «this.name»(«EXPAND Parameter::csharpParameterSource FOREACH this.parameters SEPARATOR ','»);
+«ENDDEFINE»
+
+«DEFINE csharpMethodImplSource FOR soamodel::ServiceMethod»
+	     ///<summary>
+	     /// «this.description»
+	     ///</summary>
+         public «this.methodType.entityFullBoundaryCSharpName()» «this.name»(«EXPAND Parameter::csharpParameterSource FOREACH this.parameters SEPARATOR ','»)
+         {
+         	// TODO implement
+         	«REM»
+         	Egyelőre nem jó nekünk, mert nem sikerült előállítanom egyedi nevet a protect blokkhoz.
+         	«LET this.name + concatParams(this.parameters)  AS id»
+         	«PROTECT CSTART '/*' CEND '*/' ID id»
+         		// TODO implement
+         	«ENDPROTECT»
+         	«ENDLET»
+         	«ENDREM»
+         	throw new NotImplementedException();
+         }
+«ENDDEFINE»
+

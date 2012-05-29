@@ -1,0 +1,16 @@
+import org.drools.process.core.datatype.impl.type.StringDataType;
+import org.drools.process.core.datatype.impl.type.IntegerDataType;
+
+[
+  [
+    "name" : "CreditTransaction",
+    "parameters" : [
+      "URL" : new StringDataType(),
+      "buyerName" : new StringDataType(),
+      "price" : new IntegerDataType(),
+      "isCompensation" : new StringDataType(),
+    ],
+    "displayName" : "Handle a credit transaction",
+    "icon" : "icons/webservice.gif"
+  ]
+]

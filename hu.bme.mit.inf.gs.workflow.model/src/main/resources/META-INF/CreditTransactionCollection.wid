@@ -1,0 +1,18 @@
+import org.drools.process.core.datatype.impl.type.StringDataType;
+import org.drools.process.core.datatype.impl.type.IntegerDataType;
+import org.drools.process.core.datatype.impl.type.BooleanDataType;
+
+[
+  [
+    "name" : "CreditTransactionCollection",
+    "parameters" : [
+      "URL" : new StringDataType(),
+      "operatorName" : new StringDataType(),
+      "creatorName" : new StringDataType(),
+      "price" : new IntegerDataType(),
+      "isCompensation" : new BooleanDataType()
+    ],
+    "displayName" : "Handle a credit transaction collection",
+    "icon" : "icons/webservice.gif"
+  ]
+]

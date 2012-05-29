@@ -1,0 +1,24 @@
+«DEFINE main FOR soamodel::ServiceOrientedArchitecture»
+
+«REM»Generating ServiceComponents«ENDREM»
+«FOREACH this.components AS component»
+	«IF soamodel::JEEComponent.isInstance(component)»
+		«EXPAND Component::componentSource FOR (soamodel::JEEComponent)component»
+	«ENDIF»
+	«IF soamodel::CSharpComponent.isInstance(component)»
+		«EXPAND Component::componentSource FOR (soamodel::CSharpComponent)component»
+	«ENDIF»
+«ENDFOREACH-»
+
+«REM»Generating EF Entities«ENDREM»
+«REM»«FILE name + ".edmx" ENTITY_FRAMEWORK-»«ENDREM»
+
+«REM»«EXPAND CSharpEFEntities::csharpSource FOR this»«ENDREM»
+
+
+«REM»«ENDFILE»«ENDREM»
+
+
+
+
+«ENDDEFINE»

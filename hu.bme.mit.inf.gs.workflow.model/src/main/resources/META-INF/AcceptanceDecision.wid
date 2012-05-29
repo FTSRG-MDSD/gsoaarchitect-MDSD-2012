@@ -1,0 +1,17 @@
+import org.drools.process.core.datatype.impl.type.StringDataType;
+import org.drools.process.core.datatype.impl.type.IntegerDataType;
+
+[
+  [
+    "name" : "AcceptanceDecision",
+    "parameters" : [
+      "URL" : new StringDataType(),
+      "ID" : new IntegerDataType(),
+      "Type" : new StringDataType(),
+      "Human" : new StringDataType(),
+      "Auto" : new IntegerDataType(),
+    ],
+    "displayName" : "Save acceptance decision",
+    "icon" : "icons/webservice.gif"
+  ]
+]

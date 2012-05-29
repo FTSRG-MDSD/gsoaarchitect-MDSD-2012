@@ -1,0 +1,15 @@
+import org.drools.process.core.datatype.impl.type.StringDataType;
+import org.drools.process.core.datatype.impl.type.IntegerDataType;
+
+[
+  [
+    "name" : "AppDataLoader",
+    "parameters" : [
+      "URL" : new StringDataType(),
+      "ApplicationID" : new IntegerDataType(),
+      "type" : new StringDataType(),
+    ],
+    "displayName" : "Load application data",
+    "icon" : "icons/webservice.gif"
+  ]
+]

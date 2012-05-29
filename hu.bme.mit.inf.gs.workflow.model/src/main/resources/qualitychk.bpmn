@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_isNewVersionItem" structureRef="Boolean" />
+  <itemDefinition id="_isNewMetadataItem" structureRef="Boolean" />
+  <itemDefinition id="_applicationVersionItem" structureRef="String" />
+  <itemDefinition id="_applicationMetadataItem" structureRef="String" />
+  <itemDefinition id="_applicationIDItem" structureRef="Integer" />
+  <itemDefinition id="_appRepositoryURIItem" structureRef="String" />
+  <itemDefinition id="_codeVerifierURIItem" structureRef="String" />
+  <itemDefinition id="_applicationNameItem" structureRef="String" />
+  <itemDefinition id="_versionTimestampItem" structureRef="String" />
+  <itemDefinition id="_contentItem" structureRef="Object" />
+  <itemDefinition id="_applicationPriceItem" structureRef="Integer" />
+  <itemDefinition id="_applicationDescriptionItem" structureRef="Float" />
+  <itemDefinition id="_humanResultItem" structureRef="String" />
+  <itemDefinition id="_autoResultItem" structureRef="Integer" />
+  <itemDefinition id="_metaIDItem" structureRef="Integer" />
+  <itemDefinition id="_versionIDItem" structureRef="Integer" />
+
+  <escalation id="ApplicationLoadError" escalationCode="ApplicationLoadError" />
+  <escalation id="null" escalationCode="null" />
+  <process processType="Private" isExecutable="true" id="hu.bme.mit.inf.gs.workflow.qualitychk" name="Sample Process" tns:packageName="defaultPackage" >
+
+    <!-- process variables -->
+    <property id="isNewVersion" itemSubjectRef="_isNewVersionItem"/>
+    <property id="isNewMetadata" itemSubjectRef="_isNewMetadataItem"/>
+    <property id="applicationVersion" itemSubjectRef="_applicationVersionItem"/>
+    <property id="applicationMetadata" itemSubjectRef="_applicationMetadataItem"/>
+    <property id="applicationID" itemSubjectRef="_applicationIDItem"/>
+    <property id="appRepositoryURI" itemSubjectRef="_appRepositoryURIItem"/>
+    <property id="codeVerifierURI" itemSubjectRef="_codeVerifierURIItem"/>
+    <property id="applicationName" itemSubjectRef="_applicationNameItem"/>
+    <property id="versionTimestamp" itemSubjectRef="_versionTimestampItem"/>
+    <property id="content" itemSubjectRef="_contentItem"/>
+    <property id="applicationPrice" itemSubjectRef="_applicationPriceItem"/>
+    <property id="applicationDescription" itemSubjectRef="_applicationDescriptionItem"/>
+    <property id="humanResult" itemSubjectRef="_humanResultItem"/>
+    <property id="autoResult" itemSubjectRef="_autoResultItem"/>
+    <property id="metaID" itemSubjectRef="_metaIDItem"/>
+    <property id="versionID" itemSubjectRef="_versionIDItem"/>
+
+    <!-- nodes -->
+    <parallelGateway id="_34" name="Gateway" gatewayDirection="Diverging" />
+    <userTask id="_35" name="Human meta test" >
+      <extensionElements>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("Human meta test task added to admin.");
+java.util.Map contentParam = new java.util.HashMap();
+contentParam.put("applicationName", applicationName);
+System.out.println("applicationName: " + applicationName);
+contentParam.put("applicationID", applicationID);
+contentParam.put("versionTimestamp", versionTimestamp);
+kcontext.setVariable("content", contentParam);</script>
+        </tns:onEntry-script>
+        <tns:onExit-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("Human task ended: "  + humanResult);</script>
+        </tns:onExit-script>
+      </extensionElements>
+      <ioSpecification>
+        <dataInput id="_35_ContentInput" name="Content" />
+        <dataInput id="_35_TaskNameInput" name="TaskName" />
+        <dataOutput id="_35_acceptanceOutput" name="acceptance" />
+        <inputSet>
+          <dataInputRefs>_35_ContentInput</dataInputRefs>
+          <dataInputRefs>_35_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_35_acceptanceOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>content</sourceRef>
+        <targetRef>_35_ContentInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_35_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">HumanMetaTest</from>
+          <to xsi:type="tFormalExpression">_35_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_35_acceptanceOutput</sourceRef>
+        <targetRef>humanResult</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>admin</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <startEvent id="_1" name="StartProcess" />
+    <exclusiveGateway id="_39" name="Gateway" gatewayDirection="Converging" />
+    <parallelGateway id="_37" name="Gateway" gatewayDirection="Converging" />
+    <endEvent id="_42" name="Error" >
+      <escalationEventDefinition escalationRef="ApplicationLoadError" />
+    </endEvent>
+    <task id="_43" name="Load ApplicationMetadata" tns:taskName="AppDataLoader" >
+      <ioSpecification>
+        <dataInput id="_43_URLInput" name="URL" />
+        <dataInput id="_43_ApplicationIDInput" name="ApplicationID" />
+        <dataInput id="_43_typeInput" name="type" />
+        <dataOutput id="_43_nameOutput" name="name" />
+        <dataOutput id="_43_IDOutput" name="ID" />
+        <dataOutput id="_43_appDataXMLOutput" name="appDataXML" />
+        <dataOutput id="_43_verOutput" name="ver" />
+        <inputSet>
+          <dataInputRefs>_43_URLInput</dataInputRefs>
+          <dataInputRefs>_43_ApplicationIDInput</dataInputRefs>
+          <dataInputRefs>_43_typeInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_43_nameOutput</dataOutputRefs>
+          <dataOutputRefs>_43_IDOutput</dataOutputRefs>
+          <dataOutputRefs>_43_appDataXMLOutput</dataOutputRefs>
+          <dataOutputRefs>_43_verOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>appRepositoryURI</sourceRef>
+        <targetRef>_43_URLInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>applicationID</sourceRef>
+        <targetRef>_43_ApplicationIDInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_43_typeInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">metadata</from>
+          <to xsi:type="tFormalExpression">_43_typeInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_43_nameOutput</sourceRef>
+        <targetRef>applicationName</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_43_IDOutput</sourceRef>
+        <targetRef>metaID</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_43_appDataXMLOutput</sourceRef>
+        <targetRef>applicationMetadata</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_43_verOutput</sourceRef>
+        <targetRef>versionTimestamp</targetRef>
+      </dataOutputAssociation>
+    </task>
+    <task id="_40" name="Load ApplicationVersion data" tns:taskName="AppDataLoader" >
+      <ioSpecification>
+        <dataInput id="_40_URLInput" name="URL" />
+        <dataInput id="_40_ApplicationIDInput" name="ApplicationID" />
+        <dataInput id="_40_typeInput" name="type" />
+        <dataOutput id="_40_IDOutput" name="ID" />
+        <dataOutput id="_40_appDataXMLOutput" name="appDataXML" />
+        <dataOutput id="_40_verOutput" name="ver" />
+        <inputSet>
+          <dataInputRefs>_40_URLInput</dataInputRefs>
+          <dataInputRefs>_40_ApplicationIDInput</dataInputRefs>
+          <dataInputRefs>_40_typeInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_40_IDOutput</dataOutputRefs>
+          <dataOutputRefs>_40_appDataXMLOutput</dataOutputRefs>
+          <dataOutputRefs>_40_verOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>appRepositoryURI</sourceRef>
+        <targetRef>_40_URLInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>applicationID</sourceRef>
+        <targetRef>_40_ApplicationIDInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_40_typeInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">version</from>
+          <to xsi:type="tFormalExpression">_40_typeInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_40_IDOutput</sourceRef>
+        <targetRef>versionID</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_40_appDataXMLOutput</sourceRef>
+        <targetRef>applicationVersion</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_40_verOutput</sourceRef>
+        <targetRef>versionTimestamp</targetRef>
+      </dataOutputAssociation>
+    </task>
+    <exclusiveGateway id="_41" name="Gateway" gatewayDirection="Diverging" />
+    <task id="_46" name="Auto metaverify" tns:taskName="CodeVerifier" >
+      <ioSpecification>
+        <dataInput id="_46_URLInput" name="URL" />
+        <dataInput id="_46_toCheckInput" name="toCheck" />
+        <dataInput id="_46_typeInput" name="type" />
+        <dataOutput id="_46_resultOutput" name="result" />
+        <inputSet>
+          <dataInputRefs>_46_URLInput</dataInputRefs>
+          <dataInputRefs>_46_toCheckInput</dataInputRefs>
+          <dataInputRefs>_46_typeInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_46_resultOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>codeVerifierURI</sourceRef>
+        <targetRef>_46_URLInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>applicationMetadata</sourceRef>
+        <targetRef>_46_toCheckInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_46_typeInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">metadata</from>
+          <to xsi:type="tFormalExpression">_46_typeInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_46_resultOutput</sourceRef>
+        <targetRef>autoResult</targetRef>
+      </dataOutputAssociation>
+    </task>
+    <task id="_47" name="Save acceptance decision" tns:taskName="AcceptanceDecision" >
+      <ioSpecification>
+        <dataInput id="_47_HumanInput" name="Human" />
+        <dataInput id="_47_AutoInput" name="Auto" />
+        <dataInput id="_47_IDInput" name="ID" />
+        <dataInput id="_47_URLInput" name="URL" />
+        <dataInput id="_47_TypeInput" name="Type" />
+        <inputSet>
+          <dataInputRefs>_47_HumanInput</dataInputRefs>
+          <dataInputRefs>_47_AutoInput</dataInputRefs>
+          <dataInputRefs>_47_IDInput</dataInputRefs>
+          <dataInputRefs>_47_URLInput</dataInputRefs>
+          <dataInputRefs>_47_TypeInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>humanResult</sourceRef>
+        <targetRef>_47_HumanInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>autoResult</sourceRef>
+        <targetRef>_47_AutoInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>metaID</sourceRef>
+        <targetRef>_47_IDInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>appRepositoryURI</sourceRef>
+        <targetRef>_47_URLInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_47_TypeInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">metadata</from>
+          <to xsi:type="tFormalExpression">_47_TypeInput</to>
+        </assignment>
+      </dataInputAssociation>
+    </task>
+    <exclusiveGateway id="_44" name="Gateway" gatewayDirection="Diverging" />
+    <endEvent id="_45" name="Error" >
+      <escalationEventDefinition escalationRef="null" />
+    </endEvent>
+    <task id="_49" name="Save acceptance decision" tns:taskName="AcceptanceDecision" >
+      <ioSpecification>
+        <dataInput id="_49_HumanInput" name="Human" />
+        <dataInput id="_49_AutoInput" name="Auto" />
+        <dataInput id="_49_IDInput" name="ID" />
+        <dataInput id="_49_URLInput" name="URL" />
+        <dataInput id="_49_TypeInput" name="Type" />
+        <inputSet>
+          <dataInputRefs>_49_HumanInput</dataInputRefs>
+          <dataInputRefs>_49_AutoInput</dataInputRefs>
+          <dataInputRefs>_49_IDInput</dataInputRefs>
+          <dataInputRefs>_49_URLInput</dataInputRefs>
+          <dataInputRefs>_49_TypeInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>humanResult</sourceRef>
+        <targetRef>_49_HumanInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>autoResult</sourceRef>
+        <targetRef>_49_AutoInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>versionID</sourceRef>
+        <targetRef>_49_IDInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>appRepositoryURI</sourceRef>
+        <targetRef>_49_URLInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_49_TypeInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">version</from>
+          <to xsi:type="tFormalExpression">_49_TypeInput</to>
+        </assignment>
+      </dataInputAssociation>
+    </task>
+    <task id="_48" name="Auto version verify" tns:taskName="CodeVerifier" >
+      <ioSpecification>
+        <dataInput id="_48_URLInput" name="URL" />
+        <dataInput id="_48_toCheckInput" name="toCheck" />
+        <dataInput id="_48_typeInput" name="type" />
+        <dataOutput id="_48_resultOutput" name="result" />
+        <inputSet>
+          <dataInputRefs>_48_URLInput</dataInputRefs>
+          <dataInputRefs>_48_toCheckInput</dataInputRefs>
+          <dataInputRefs>_48_typeInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_48_resultOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>codeVerifierURI</sourceRef>
+        <targetRef>_48_URLInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>applicationVersion</sourceRef>
+        <targetRef>_48_toCheckInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_48_typeInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">version</from>
+          <to xsi:type="tFormalExpression">_48_typeInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_48_resultOutput</sourceRef>
+        <targetRef>autoResult</targetRef>
+      </dataOutputAssociation>
+    </task>
+    <endEvent id="_21" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+    <parallelGateway id="_25" name="Gateway" gatewayDirection="Converging" />
+    <parallelGateway id="_26" name="Gateway" gatewayDirection="Diverging" />
+    <userTask id="_28" name="Human Test" >
+      <extensionElements>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("Human Version Test Task started");
+java.util.Map contentParam = new java.util.HashMap();
+contentParam.put("applicationID", applicationID);
+contentParam.put("versionTimestamp", versionTimestamp);
+kcontext.setVariable("content", contentParam);</script>
+        </tns:onEntry-script>
+        <tns:onExit-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("Human Version Test Task ended");</script>
+        </tns:onExit-script>
+      </extensionElements>
+      <ioSpecification>
+        <dataInput id="_28_ContentInput" name="Content" />
+        <dataInput id="_28_CommentInput" name="Comment" />
+        <dataInput id="_28_TaskNameInput" name="TaskName" />
+        <dataInput id="_28_PriorityInput" name="Priority" />
+        <dataOutput id="_28_acceptanceOutput" name="acceptance" />
+        <inputSet>
+          <dataInputRefs>_28_ContentInput</dataInputRefs>
+          <dataInputRefs>_28_CommentInput</dataInputRefs>
+          <dataInputRefs>_28_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_28_PriorityInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_28_acceptanceOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>content</sourceRef>
+        <targetRef>_28_ContentInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_28_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_28_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_28_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">HumanVersionTest</from>
+          <to xsi:type="tFormalExpression">_28_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_28_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">10</from>
+          <to xsi:type="tFormalExpression">_28_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_28_acceptanceOutput</sourceRef>
+        <targetRef>humanResult</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>admin</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <exclusiveGateway id="_31" name="App OR Data?" gatewayDirection="Diverging" />
+
+    <!-- connections -->
+    <sequenceFlow id="_44-_34" sourceRef="_44" targetRef="_34" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return !applicationMetadata.isEmpty();</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_34-_35" sourceRef="_34" targetRef="_35" />
+    <sequenceFlow id="_47-_39" sourceRef="_47" targetRef="_39" />
+    <sequenceFlow id="_49-_39" sourceRef="_49" targetRef="_39" />
+    <sequenceFlow id="_35-_37" sourceRef="_35" targetRef="_37" />
+    <sequenceFlow id="_46-_37" sourceRef="_46" targetRef="_37" />
+    <sequenceFlow id="_41-_42" sourceRef="_41" targetRef="_42" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return applicationVersion.isEmpty();</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_31-_43" sourceRef="_31" targetRef="_43" name="[new metadata]" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return isNewMetadata;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_31-_40" sourceRef="_31" targetRef="_40" name="[new version]" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return (!isNewMetadata &amp;&amp; isNewVersion);</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_40-_41" sourceRef="_40" targetRef="_41" />
+    <sequenceFlow id="_34-_46" sourceRef="_34" targetRef="_46" />
+    <sequenceFlow id="_37-_47" sourceRef="_37" targetRef="_47" />
+    <sequenceFlow id="_43-_44" sourceRef="_43" targetRef="_44" />
+    <sequenceFlow id="_44-_45" sourceRef="_44" targetRef="_45" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return applicationMetadata.isEmpty();</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_25-_49" sourceRef="_25" targetRef="_49" />
+    <sequenceFlow id="_26-_48" sourceRef="_26" targetRef="_48" />
+    <sequenceFlow id="_39-_21" sourceRef="_39" targetRef="_21" />
+    <sequenceFlow id="_28-_25" sourceRef="_28" targetRef="_25" />
+    <sequenceFlow id="_48-_25" sourceRef="_48" targetRef="_25" />
+    <sequenceFlow id="_41-_26" sourceRef="_41" targetRef="_26" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return !applicationVersion.isEmpty();</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_26-_28" sourceRef="_26" targetRef="_28" />
+    <sequenceFlow id="_1-_31" sourceRef="_1" targetRef="_31" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="hu.bme.mit.inf.gs.workflow.qualitychk" >
+      <bpmndi:BPMNShape bpmnElement="_34" >
+        <dc:Bounds x="517" y="258" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_35" >
+        <dc:Bounds x="609" y="220" width="107" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="79" y="197" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_39" >
+        <dc:Bounds x="965" y="195" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_37" >
+        <dc:Bounds x="738" y="250" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_42" >
+        <dc:Bounds x="409" y="54" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_43" >
+        <dc:Bounds x="222" y="261" width="156" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_40" >
+        <dc:Bounds x="220" y="128" width="163" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_41" >
+        <dc:Bounds x="408" y="124" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_46" >
+        <dc:Bounds x="613" y="301" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_47" >
+        <dc:Bounds x="815" y="251" width="176" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_44" >
+        <dc:Bounds x="410" y="260" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_45" >
+        <dc:Bounds x="411" y="336" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_49" >
+        <dc:Bounds x="808" y="121" width="187" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_48" >
+        <dc:Bounds x="596" y="160" width="120" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_21" >
+        <dc:Bounds x="1066" y="195" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_25" >
+        <dc:Bounds x="736" y="127" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_26" >
+        <dc:Bounds x="520" y="126" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_28" >
+        <dc:Bounds x="610" y="80" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_31" >
+        <dc:Bounds x="190" y="196" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_44-_34" >
+        <di:waypoint x="434" y="284" />
+        <di:waypoint x="541" y="282" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_34-_35" >
+        <di:waypoint x="541" y="282" />
+        <di:waypoint x="662" y="244" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_47-_39" >
+        <di:waypoint x="903" y="275" />
+        <di:waypoint x="989" y="219" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_49-_39" >
+        <di:waypoint x="901" y="145" />
+        <di:waypoint x="989" y="219" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_35-_37" >
+        <di:waypoint x="662" y="244" />
+        <di:waypoint x="762" y="274" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_46-_37" >
+        <di:waypoint x="663" y="325" />
+        <di:waypoint x="762" y="274" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_41-_42" >
+        <di:waypoint x="432" y="148" />
+        <di:waypoint x="433" y="78" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_31-_43" >
+        <di:waypoint x="214" y="220" />
+        <di:waypoint x="300" y="285" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_31-_40" >
+        <di:waypoint x="214" y="220" />
+        <di:waypoint x="301" y="152" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_40-_41" >
+        <di:waypoint x="301" y="152" />
+        <di:waypoint x="432" y="148" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_34-_46" >
+        <di:waypoint x="541" y="282" />
+        <di:waypoint x="663" y="325" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_37-_47" >
+        <di:waypoint x="762" y="274" />
+        <di:waypoint x="903" y="275" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_43-_44" >
+        <di:waypoint x="300" y="285" />
+        <di:waypoint x="434" y="284" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_44-_45" >
+        <di:waypoint x="434" y="284" />
+        <di:waypoint x="435" y="360" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_25-_49" >
+        <di:waypoint x="760" y="151" />
+        <di:waypoint x="901" y="145" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_26-_48" >
+        <di:waypoint x="544" y="150" />
+        <di:waypoint x="656" y="184" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_39-_21" >
+        <di:waypoint x="989" y="219" />
+        <di:waypoint x="1090" y="219" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_28-_25" >
+        <di:waypoint x="660" y="104" />
+        <di:waypoint x="760" y="151" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_48-_25" >
+        <di:waypoint x="656" y="184" />
+        <di:waypoint x="760" y="151" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_41-_26" >
+        <di:waypoint x="432" y="148" />
+        <di:waypoint x="544" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_26-_28" >
+        <di:waypoint x="544" y="150" />
+        <di:waypoint x="660" y="104" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-_31" >
+        <di:waypoint x="103" y="221" />
+        <di:waypoint x="214" y="220" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

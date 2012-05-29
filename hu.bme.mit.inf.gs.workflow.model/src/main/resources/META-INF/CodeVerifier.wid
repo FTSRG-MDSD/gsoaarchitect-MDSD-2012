@@ -1,0 +1,15 @@
+import org.drools.process.core.datatype.impl.type.StringDataType;
+import org.drools.process.core.datatype.impl.type.IntegerDataType;
+
+[
+  [
+    "name" : "CodeVerifier",
+    "parameters" : [
+      "URL" : new StringDataType(),
+      "type" : new StringDataType(),
+      "toCheck" : new StringDataType()
+    ],
+    "displayName" : "Auto verify",
+    "icon" : "icons/webservice.gif"
+  ]
+]

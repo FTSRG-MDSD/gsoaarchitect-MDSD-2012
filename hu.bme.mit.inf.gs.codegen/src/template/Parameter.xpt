@@ -1,0 +1,6 @@
+«EXTENSION template::EntityNameExtension»
+
+«REM»CSharp paramters«ENDREM»
+«DEFINE csharpParameterSource FOR soamodel::Parameter-»
+«this.parameterType.entityFullBoundaryCSharpName()-» «this.name-»
+«ENDDEFINE»

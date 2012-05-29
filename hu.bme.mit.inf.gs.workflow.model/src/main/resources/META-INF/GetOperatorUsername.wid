@@ -1,0 +1,13 @@
+import org.drools.process.core.datatype.impl.type.StringDataType;
+import org.drools.process.core.datatype.impl.type.IntegerDataType;
+
+[
+  [
+    "name" : "GetOperator",
+    "parameters" : [
+      "URL" : new StringDataType(),
+    ],
+    "displayName" : "Get the operator's name",
+    "icon" : "icons/webservice.gif"
+  ]
+]

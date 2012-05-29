@@ -1,0 +1,7 @@
+«DEFINE componentSource FOR soamodel::CSharpComponent»
+«EXPAND CSharpComponent::componentSource FOR this»
+«ENDDEFINE»
+
+«DEFINE componentSource FOR soamodel::JEEComponent»
+«EXPAND JavaComponent::componentSource FOR this»
+«ENDDEFINE»

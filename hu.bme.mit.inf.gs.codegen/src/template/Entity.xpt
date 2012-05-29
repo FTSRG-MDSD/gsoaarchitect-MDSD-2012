@@ -1,0 +1,50 @@
+«IMPORT soamodel»
+«EXTENSION template::EntityNameExtension»
+«DEFINE javaSource FOR soamodel::Entity»
+«FILE this.persistedBy.name + "//src//hu//bme/mit//inf//gs//AppStore//" + this.persistedBy.name + "//model//" + entityName() + ".java"»
+// This entity is for Java.
+package «((String)GLOBALVAR JavaComponentPackage)+"."+this.persistedBy.name+".model"»;
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@Entity
+@XmlRootElement
+public class «entityName() + jpaInheritanceDeclaration()» {
+	
+	«FOREACH this.attributes AS attribute-»
+		«EXPAND javaAttributeSource FOR attribute-»
+	«ENDFOREACH-»
+	
+	«FOREACH this.attributes AS attribute»
+		«EXPAND javaAttributeGetterSetterSource FOR attribute»
+	«ENDFOREACH»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE javaAttributeSource FOR soamodel::Attribute»
+	«jpaIDAnnotations()»
+	«javaAttributeDeclarationPre()»
+	private «this.attributeType.entityFullJavaName()» «this.name-»«javaAttributeDeclarationPost(this.attributeType)»;
+«ENDDEFINE»
+
+«DEFINE javaAttributeGetterSetterSource FOR soamodel::Attribute»
+    @XmlElement
+	public «this.attributeType.entityFullJavaName()» «javaGetterName()» {
+		return «this.name»;
+	}
+	
+	public void «javaSetterName()»(«this.attributeType.entityFullJavaName()» arg) {
+		«this.name» = arg;
+	}
+«ENDDEFINE»
+
+
+«DEFINE javaEnumSource FOR soamodel::Enum»
+public enum «entityName()» {
+	«FOREACH this.literals AS literal»
+		«literal.name», 
+	«ENDFOREACH»
+}
+«ENDDEFINE»

@@ -1,0 +1,52 @@
+«EXTENSION template::EntityNameExtension»
+
+«DEFINE csharpBoundaryEntity(String namespace) FOR soamodel::Entity»
+«FILE namespace + "/BoundaryEntities/" + this.entityFullBoundaryCSharpName() + ".cs"  CSHARP_OUTLET »
+// This entity is for C#.
+// Used in web service methods, not for persisting data.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace «namespace»
+{
+	public class «this.entityFullBoundaryCSharpName()»
+	{
+		«FOREACH this.attributes AS attrib -»
+		public «attrib.attributeType.entityFullBoundaryCSharpName()» «attrib.name» { get; set; }
+		«ENDFOREACH-»
+
+	
+		public static «this.entityFullBoundaryCSharpName()» CreateFromEFObject(«this.entityFullCSharpName()» ef)
+		{
+			if (ef == null)
+            {
+                return null;
+            }
+			«this.entityFullBoundaryCSharpName()» inst = new «this.entityFullBoundaryCSharpName()»();
+			// TODO review and implement 
+			
+			«FOREACH this.attributes AS attrib -»
+			«IF soamodel::Enum.isInstance(attrib.attributeType) || soamodel::BuiltInDataType.isInstance(attrib.attributeType) -»
+			// inst.«attrib.name» = ef.«attrib.name»;
+			«ENDIF -»
+			«ENDFOREACH-»
+			return inst;
+		}
+		
+		public «this.entityFullCSharpName()» CreateEFObject()
+		{
+			«this.entityFullCSharpName()» inst = new «this.entityFullCSharpName()»();
+			«FOREACH this.attributes AS attrib -»
+			«IF soamodel::Enum.isInstance(attrib.attributeType) || soamodel::BuiltInDataType.isInstance(attrib.attributeType) -»
+			inst.«attrib.name» = this.«attrib.name»;
+			«ENDIF-»
+			«ENDFOREACH-»
+			return inst;
+		}
+	}
+}
+«ENDFILE»
+«ENDDEFINE»

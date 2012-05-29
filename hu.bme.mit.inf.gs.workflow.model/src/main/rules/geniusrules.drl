@@ -1,0 +1,176 @@
+#created on: Apr 26, 2012
+package hu.bme.mit.inf.gs.genius
+import hu.bme.mit.inf.gs.workflow.genius.helpers.*;
+import hu.bme.mit.inf.gs.workflow.genius.*;
+
+
+rule "OfferPopularApps" // népszerû, azaz drága és sokat vásárolt appokat ajánl
+	ruleflow-group "genius-offer"
+	lock-on-active // mert az elején tudjuk, mi a népszerû
+	salience 40 // népszerû mindenek felett
+    when
+    	$offereds: OfferedApplications(offeredBasedOnPopularity < Constants.maxOfferFromPopularity)
+        $appmeta: ApplicationMetadataBoundaryEntity(price > Constants.priceLimit) // olyan metadata ami drága
+        $app: ApplicationBoundaryEntity(lastAcceptedMetadata.applicationMetadataID == $appmeta.applicationMetadataID) // drága app és majd népszerû is lesz
+        $populi: PopularityOfApps(purchaseCount >= Constants.purchaseLimit && applicationID == $app.applicationID) // egy app, melyet legalább 4-en megvettek már
+
+    then
+    	modify($offereds){offer($app,2)} // add to offered
+		System.out.println("App offered because it is popular (expensive + others bought)!");
+end
+
+
+rule "OfferFromLikedCategory" // kedvelt kategóriájából ajánlunk
+	ruleflow-group "genius-offer"
+	lock-on-active // mert az elején tudjuk
+	salience 40 // népszerûek után
+    when
+    	$offereds: OfferedApplications(offeredBasedOnCategory < Constants.maxOfferFromCategory)
+		$cathit: CategoryAndHit(hitCount >= Constants.categoryHitLimit && !category.categoryName.equals("OTHER")) //  3 vagy többet vett ebbõl a kategóriából és nem other kategóriájú
+        $appmeta: ApplicationMetadataBoundaryEntity($cathit.category.categoryName.equals(categories.get(0).categoryName)) // metadata categories tartalmazza
+        $app: ApplicationBoundaryEntity(lastAcceptedMetadata.applicationMetadataID == $appmeta.applicationMetadataID)
+    then
+    	modify($offereds){offer($app,0)} // add to offered
+		System.out.println("App offered because user likes this category (bought many)!");
+end
+
+
+rule "OfferFromLikedCreator" // kedvelt készítõjétõl ajánlunk
+	ruleflow-group "genius-offer"
+	lock-on-active // mert az elején tudjuk
+	salience 40 // népszerûek után
+    when
+    	$offereds: OfferedApplications(offeredBasedOnCreator < Constants.maxOfferFromCreator)
+        $crehit: CreatorAndHit(hitCount >= Constants.creatorHitLimit) // n vagy többet vett ettõl a készítõtõl
+        $appmeta: ApplicationMetadataBoundaryEntity() // bármi, de:
+        $app: ApplicationBoundaryEntity(lastAcceptedMetadata.applicationMetadataID == $appmeta.applicationMetadataID && creatorName.equals($crehit.creatorName)) // ez createlte
+    then
+    	modify($offereds){offer($app,1);} // add to offered
+		System.out.println("App offered because user likes this creator (bought many from them)!");
+end
+
+
+rule "WEKA_1"
+	ruleflow-group "genius-offer"
+	lock-on-active // mert az elején tudjuk
+	salience 60
+    when
+    	$offereds: OfferedApplications()
+        $app: ApplicationBoundaryEntity(applicationID.equals(62))// && $ali.boughtApps contains this)
+        AllAndBoughtApplications(ganyContainsBought($app) == true)
+        $offerThis: ApplicationBoundaryEntity(applicationID == 56)
+    then
+    	modify($offereds){ offer($offerThis,-1)} // add to offered 
+		System.out.println("WEKA 1 rule fired!");
+end
+
+
+rule "WEKA_2"
+	ruleflow-group "genius-offer"
+	lock-on-active // mert az elején tudjuk
+	salience 60
+    when
+    	$offereds: OfferedApplications()
+        $app: ApplicationBoundaryEntity(applicationID.equals(5))
+        $app2: ApplicationBoundaryEntity(applicationID.equals(53))
+        AllAndBoughtApplications(ganyContainsBought($app) == true && ganyContainsBought($app2) == true)
+        $offerThis: ApplicationBoundaryEntity(applicationID == 24)
+    then
+    	modify($offereds){ offer($offerThis,-1)} // add to offered 
+		System.out.println("WEKA 2 rule fired!");
+end
+
+
+rule "WEKA_3"
+	ruleflow-group "genius-offer"
+	lock-on-active // mert az elején tudjuk
+	salience 60
+    when
+    	$offereds: OfferedApplications()
+        $app: ApplicationBoundaryEntity(applicationID.equals(5))
+        $app2: ApplicationBoundaryEntity(applicationID.equals(29))
+        $app3: ApplicationBoundaryEntity(applicationID.equals(72))
+        AllAndBoughtApplications(ganyContainsBought($app) == true && ganyContainsBought($app2) == true && ganyContainsBought($app3) == true)
+        $offerThis: ApplicationBoundaryEntity(applicationID == 63)
+    then
+    	modify($offereds){ offer($offerThis,-1)} // add to offered 
+		System.out.println("WEKA 3 rule fired!");
+end
+
+
+rule "WEKA_4"
+	ruleflow-group "genius-offer"
+	lock-on-active // mert az elején tudjuk
+	salience 60
+    when
+    	$offereds: OfferedApplications()
+        $app: ApplicationBoundaryEntity(applicationID.equals(17))
+        $app2: ApplicationBoundaryEntity(applicationID.equals(13))
+        AllAndBoughtApplications(ganyContainsBought($app) == true && ganyContainsBought($app2) == true)
+        $offerThis: ApplicationBoundaryEntity(applicationID == 8)
+    then
+    	modify($offereds){ offer($offerThis,-1)} // add to offered 
+		System.out.println("WEKA 4 rule fired!");
+end
+
+
+rule "WEKA_5"
+	ruleflow-group "genius-offer"
+	lock-on-active // mert az elején tudjuk
+	salience 60
+    when
+    	$offereds: OfferedApplications()
+        $app: ApplicationBoundaryEntity(applicationID.equals(29))
+        $app2: ApplicationBoundaryEntity(applicationID.equals(31))
+        $app3: ApplicationBoundaryEntity(applicationID.equals(11))
+        AllAndBoughtApplications(ganyContainsBought($app) == true && ganyContainsBought($app2) == true && ganyContainsBought($app3) == true)
+        $offerThis: ApplicationBoundaryEntity(applicationID == 19)
+    then
+    	modify($offereds){ offer($offerThis,-1)} // add to offered 
+		System.out.println("WEKA 5 rule fired!");
+end
+
+
+rule "KillAgeRestrictedOfferedApps" // kiirtja azokat az appokat, melyeket nem tekinthetne meg, mert korhatáros 
+	ruleflow-group "genius-offer"
+	salience 10 // csak a végén irtunk
+    when
+    	$offereds: OfferedApplications() // get instance (1 van)
+    	$user: UserEntity() // az egy user
+        $appmeta: ApplicationMetadataBoundaryEntity($user.age < ageRestriction) // olyan metadata age limitet sért (2012->112)
+        //$metadatas: ApplicationMetadataContainer(allAppMetadatas contains $appmeta) // benne van a metaadatlistában
+        $app: ApplicationBoundaryEntity(lastAcceptedMetadata.applicationMetadataID == $appmeta.applicationMetadataID) // a hozzá tartozó app
+        OfferedApplications (offeredApps contains $app) // tartalmazza az offered
+    then
+    	modify($offereds){unoffer($app)} // remove offered
+		System.out.println("App unoffered, age limit violated!");
+end
+
+
+rule "EliminateAlreadyBoughtApps" // kiirtja azokat az appokat, melyeket már megvett
+	ruleflow-group "genius-offer"
+	salience 15 // csak a végén vesszük ki
+    when
+    	$offereds: OfferedApplications() // get instance (1 van)
+        
+        $app: ApplicationBoundaryEntity() // egy app, melyet
+        OfferedApplications (offeredApps contains $app) // ajánlottuk már
+        
+        $anotherApp: ApplicationBoundaryEntity(applicationID == $app.applicationID) // egy másik app, mely egyenlõ az elõzõvel és
+        AllAndBoughtApplications(ganyContainsBought($anotherApp) == true) // már megvette a user
+    then
+    	modify($offereds){unoffer($app)} // remove offered
+		System.out.println("App unoffered, already bought!");
+end
+
+
+rule "TooManyOffered"
+	ruleflow-group "genius-offer"
+	salience 0 // utolsó utáni lépés
+    when
+    	$offereds: OfferedApplications(offeredApps.size() > Constants.maxOfferableApps) // ha több, mint 10-et beajánlottunk, vágjuk el
+        $app: ApplicationBoundaryEntity($offereds.offeredApps contains this) // egy app, melyet ajánlottuk már
+    then
+    	modify($offereds){unoffer($app)} // remove offered
+		System.out.println("App unoffered, too many offered!");
+end

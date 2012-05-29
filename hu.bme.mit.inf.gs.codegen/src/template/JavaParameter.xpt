@@ -1,0 +1,11 @@
+«EXTENSION template::EntityNameExtension»
+
+«REM»Java parameters«ENDREM»
+«DEFINE javaParameterSource FOR soamodel::Parameter-»
+«this.parameterType.entityFullJavaName()-» «this.name-»
+«ENDDEFINE»
+
+«REM»Java parameters w/ REST annotation«ENDREM»
+«DEFINE javaRESTParameterSource FOR soamodel::Parameter-»
+@PathParam("«this.name»") «this.parameterType.entityFullJavaName()-» «this.name-»
+«ENDDEFINE»

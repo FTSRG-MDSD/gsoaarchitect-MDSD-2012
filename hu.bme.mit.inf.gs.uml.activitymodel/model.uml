@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_XdTfEGXqEeGkfrO9jnU8wQ" name="model">
+  <packagedElement xmi:type="uml:Activity" xmi:id="_XdUGIGXqEeGkfrO9jnU8wQ" name="AppStore">
+    <ownedParameter xmi:id="_8BpvUGX2EeGw5q3BNsXYNg" name="Purchase Application"/>
+    <node xmi:type="uml:InitialNode" xmi:id="_TL_kcWX2EeGw5q3BNsXYNg" name="InitialNode1" outgoing="_oSljsGX2EeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_hK-AwGX2EeGw5q3BNsXYNg" name="Purchase Request accepted" outgoing="_XW7eYGX3EeGw5q3BNsXYNg _ccUq4GX3EeGw5q3BNsXYNg" incoming="_oSljsGX2EeGw5q3BNsXYNg _9W3OwGX2EeGw5q3BNsXYNg _wiyeUGYBEeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:ActivityParameterNode" xmi:id="_8CA7sGX2EeGw5q3BNsXYNg" name="Purchase Application" outgoing="_9W3OwGX2EeGw5q3BNsXYNg _wiyeUGYBEeGw5q3BNsXYNg" isControlType="true" parameter="_8BpvUGX2EeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_Wq6F4GX3EeGw5q3BNsXYNg" name="DecisionNode1" outgoing="_mYdj4GX3EeGw5q3BNsXYNg _qJF84GX3EeGw5q3BNsXYNg" incoming="_XW7eYGX3EeGw5q3BNsXYNg _ccUq4GX3EeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:ForkNode" xmi:id="_fvqq8GX3EeGw5q3BNsXYNg" name="ForkNode1" outgoing="_CME0wGX4EeGw5q3BNsXYNg _D7tmYGX4EeGw5q3BNsXYNg _EmNU4GX4EeGw5q3BNsXYNg" incoming="_-8MYYGX3EeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_hVbu4GX3EeGw5q3BNsXYNg" name="Purchase Request close with errors" outgoing="_ruew4GX4EeGw5q3BNsXYNg _fvpB4HnkEeG8nM8hUQ7qpA" incoming="_mYdj4GX3EeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_us5fQGX3EeGw5q3BNsXYNg" name="Credit deposit to developer" outgoing="_ausO8GX4EeGw5q3BNsXYNg" incoming="_CME0wGX4EeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_yhcH4GX3EeGw5q3BNsXYNg" name="Credit deposit to AppStore" outgoing="_aTSsYGX4EeGw5q3BNsXYNg" incoming="_D7tmYGX4EeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_1Ihe4GX3EeGw5q3BNsXYNg" name="Credit withdraw from user" outgoing="_-8MYYGX3EeGw5q3BNsXYNg" incoming="_qJF84GX3EeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_5XXd4GX3EeGw5q3BNsXYNg" name="Add application to account" outgoing="_bHLAYGX4EeGw5q3BNsXYNg" incoming="_EmNU4GX4EeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_SSgFwGX4EeGw5q3BNsXYNg" name="Purchase Request close with success" outgoing="_sD2j8GX4EeGw5q3BNsXYNg _dlp2kHnkEeG8nM8hUQ7qpA" incoming="_XkyewGX4EeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:JoinNode" xmi:id="_WbfUYGX4EeGw5q3BNsXYNg" name="JoinNode1" outgoing="_XkyewGX4EeGw5q3BNsXYNg" incoming="_aTSsYGX4EeGw5q3BNsXYNg _ausO8GX4EeGw5q3BNsXYNg _bHLAYGX4EeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:MergeNode" xmi:id="_nDkg8GX4EeGw5q3BNsXYNg" name="MergeNode1" outgoing="_pfz54GX4EeGw5q3BNsXYNg" incoming="_ruew4GX4EeGw5q3BNsXYNg _sD2j8GX4EeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:FlowFinalNode" xmi:id="_o1BQcGX4EeGw5q3BNsXYNg" name="FlowFinalNode1" incoming="_pfz54GX4EeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:ActivityFinalNode" xmi:id="_afKmwHnkEeG8nM8hUQ7qpA" name="ActivityFinalNode1" incoming="_dlp2kHnkEeG8nM8hUQ7qpA"/>
+    <node xmi:type="uml:ActivityFinalNode" xmi:id="_cjo_8HnkEeG8nM8hUQ7qpA" name="ActivityFinalNode2" incoming="_fvpB4HnkEeG8nM8hUQ7qpA"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_oSljsGX2EeGw5q3BNsXYNg" name="igenyJon" isLeaf="true" source="_TL_kcWX2EeGw5q3BNsXYNg" target="_hK-AwGX2EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_9W3OwGX2EeGw5q3BNsXYNg" name="arrives" source="_8CA7sGX2EeGw5q3BNsXYNg" target="_hK-AwGX2EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_XW7eYGX3EeGw5q3BNsXYNg" name="ControlFlow1" source="_hK-AwGX2EeGw5q3BNsXYNg" target="_Wq6F4GX3EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_ccUq4GX3EeGw5q3BNsXYNg" name="igenytovabb01" source="_hK-AwGX2EeGw5q3BNsXYNg" target="_Wq6F4GX3EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_mYdj4GX3EeGw5q3BNsXYNg" name="[not enough money on account]" source="_Wq6F4GX3EeGw5q3BNsXYNg" target="_hVbu4GX3EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_qJF84GX3EeGw5q3BNsXYNg" name="[enough money]" source="_Wq6F4GX3EeGw5q3BNsXYNg" target="_1Ihe4GX3EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_-8MYYGX3EeGw5q3BNsXYNg" name="purchase_accepted" source="_1Ihe4GX3EeGw5q3BNsXYNg" target="_fvqq8GX3EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_CME0wGX4EeGw5q3BNsXYNg" name="p1" source="_fvqq8GX3EeGw5q3BNsXYNg" target="_us5fQGX3EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_D7tmYGX4EeGw5q3BNsXYNg" name="p2" source="_fvqq8GX3EeGw5q3BNsXYNg" target="_yhcH4GX3EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_EmNU4GX4EeGw5q3BNsXYNg" name="p3" source="_fvqq8GX3EeGw5q3BNsXYNg" target="_5XXd4GX3EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_XkyewGX4EeGw5q3BNsXYNg" name="success_goon" source="_WbfUYGX4EeGw5q3BNsXYNg" target="_SSgFwGX4EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_aTSsYGX4EeGw5q3BNsXYNg" name="q3" source="_yhcH4GX3EeGw5q3BNsXYNg" target="_WbfUYGX4EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_ausO8GX4EeGw5q3BNsXYNg" name="q2" source="_us5fQGX3EeGw5q3BNsXYNg" target="_WbfUYGX4EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_bHLAYGX4EeGw5q3BNsXYNg" name="q1" source="_5XXd4GX3EeGw5q3BNsXYNg" target="_WbfUYGX4EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_pfz54GX4EeGw5q3BNsXYNg" name="[order closed]" source="_nDkg8GX4EeGw5q3BNsXYNg" target="_o1BQcGX4EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_ruew4GX4EeGw5q3BNsXYNg" name="fin1" source="_hVbu4GX3EeGw5q3BNsXYNg" target="_nDkg8GX4EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_sD2j8GX4EeGw5q3BNsXYNg" name="fin2" source="_SSgFwGX4EeGw5q3BNsXYNg" target="_nDkg8GX4EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_wiyeUGYBEeGw5q3BNsXYNg" name="baz" source="_8CA7sGX2EeGw5q3BNsXYNg" target="_hK-AwGX2EeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_dlp2kHnkEeG8nM8hUQ7qpA" name="fin1" source="_SSgFwGX4EeGw5q3BNsXYNg" target="_afKmwHnkEeG8nM8hUQ7qpA"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_fvpB4HnkEeG8nM8hUQ7qpA" name="fin3" source="_hVbu4GX3EeGw5q3BNsXYNg" target="_cjo_8HnkEeG8nM8hUQ7qpA"/>
+  </packagedElement>
+</uml:Model>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src-gen"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/hu.bme.mit.inf.gs.dsl"/>
+	<classpathentry kind="lib" path="lib/derby.jar"/>
+	<classpathentry kind="lib" path="lib/eclipselink.jar"/>
+	<classpathentry kind="lib" path="lib/javax.persistence_1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/javax.persistence_2.0.3.v201010191057.jar"/>
+	<classpathentry kind="lib" path="lib/asm-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-jaxrs-1.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-mapper-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-xc-1.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-client-1.12.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-core-1.12.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-json-1.12.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-server-1.12.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-servlet-1.12.jar"/>
+	<classpathentry kind="lib" path="lib/jettison-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/jsr311-api-1.1.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

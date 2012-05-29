@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_offeredAppsItem" structureRef="Object" />
+
+  <process processType="Private" isExecutable="true" id="hu.bme.mit.inf.gs.workflow.geniusbpmn" name="Sample Process" tns:packageName="gs" >
+
+    <!-- process variables -->
+    <property id="offeredApps" itemSubjectRef="_offeredAppsItem"/>
+
+    <!-- nodes -->
+    <startEvent id="_1" name="StartProcess" />
+    <businessRuleTask id="_2" name="Offer applications (rule-based)" g:ruleFlowGroup="genius-offer" >
+    </businessRuleTask>
+    <endEvent id="_3" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+    <task id="_5" name="Initialize, get apps" tns:taskName="UserIdGetter" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </task>
+    <scriptTask id="_7" name="Print final state" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Ez itt a vége, ajánlottunk alkalmazást:");</script>
+    </scriptTask>
+
+    <!-- connections -->
+    <sequenceFlow id="_5-_2" sourceRef="_5" targetRef="_2" />
+    <sequenceFlow id="_7-_3" sourceRef="_7" targetRef="_3" />
+    <sequenceFlow id="_1-_5" sourceRef="_1" targetRef="_5" />
+    <sequenceFlow id="_2-_7" sourceRef="_2" targetRef="_7" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="hu.bme.mit.inf.gs.workflow.geniusbpmn" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="16" y="16" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="215" y="16" width="191" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" >
+        <dc:Bounds x="527" y="16" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" >
+        <dc:Bounds x="99" y="113" width="124" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" >
+        <dc:Bounds x="394" y="110" width="108" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_5-_2" >
+        <di:waypoint x="161" y="137" />
+        <di:waypoint x="310" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_7-_3" >
+        <di:waypoint x="448" y="134" />
+        <di:waypoint x="551" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-_5" >
+        <di:waypoint x="40" y="40" />
+        <di:waypoint x="161" y="137" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2-_7" >
+        <di:waypoint x="310" y="40" />
+        <di:waypoint x="448" y="134" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

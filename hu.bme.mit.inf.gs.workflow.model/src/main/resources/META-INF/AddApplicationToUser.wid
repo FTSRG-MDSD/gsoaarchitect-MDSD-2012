@@ -1,0 +1,17 @@
+import org.drools.process.core.datatype.impl.type.StringDataType;
+import org.drools.process.core.datatype.impl.type.IntegerDataType;
+import org.drools.process.core.datatype.impl.type.BooleanDataType;
+
+[
+  [
+    "name" : "AddApplicationToUser",
+    "parameters" : [
+      "URL" : new StringDataType(),
+      "ApplicationID" : new IntegerDataType(),
+      "buyerName" : new StringDataType(),
+      "isCompensation" : new BooleanDataType()
+    ],
+    "displayName" : "Add application to user's ApplicationAccount",
+    "icon" : "icons/webservice.gif"
+  ]
+]

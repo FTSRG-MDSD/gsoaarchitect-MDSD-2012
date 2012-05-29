@@ -1,0 +1,210 @@
+«IMPORT soamodel»
+«EXTENSION template::EntityNameExtension»
+
+«DEFINE csharpSource FOR soamodel::CSharpComponent»
+
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+<!-- EF Runtime content -->
+<edmx:Runtime>
+<!-- SSDL content -->
+<edmx:StorageModels>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl" Namespace="«this.namespace».Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+<EntityContainer Name="«this.namespace»TargetContainer" >
+</EntityContainer>
+</Schema>
+</edmx:StorageModels>
+<!-- CSDL content -->
+<edmx:ConceptualModels>
+<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="«this.namespace»" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+<EntityContainer Name="«this.namespace»Container" annotation:LazyLoadingEnabled="true">
+«REM»entity set-ek:«ENDREM»
+«FOREACH this.persists AS entity-»
+«EXPAND entitySetSource(this.namespace) FOR entity»
+«ENDFOREACH»
+«REM»association set-ek:«ENDREM»
+«REM»«FOREACH this.dataTypes AS datatype-»
+	«IF soamodel::Entity.isInstance(datatype)»
+		«FOREACH this.dataTypes AS pairtype-»
+			«IF soamodel::Entity.isInstance(pairtype)»
+				<AssociationSet Name="«datatype.name»«pairtype.name»" Association="«this.namespace».«datatype.name»«pairtype.name»">
+				  <End Role="«datatype.name»" EntitySet="«datatype.name»Set" />
+				  <End Role="«pairtype.name»" EntitySet="«pairtype.name»Set" />
+				</AssociationSet>
+			«ENDIF»
+		«ENDFOREACH»
+	«ENDIF»
+«ENDFOREACH»«ENDREM»
+«FOREACH this.persists AS entity-»
+«EXPAND associationSetSource(this.namespace) FOR entity»
+«ENDFOREACH»
+</EntityContainer>
+«FOREACH this.persists AS entity-»
+«EXPAND entitySource(this.namespace) FOR entity»
+«ENDFOREACH»
+«FOREACH this.persists AS entity-»
+«EXPAND assocSource(this.namespace) FOR entity»
+«ENDFOREACH»
+</Schema>
+</edmx:ConceptualModels>
+<!-- C-S mapping content -->
+<edmx:Mappings>
+<Mapping xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs" Space="C-S">
+<Alias Key="«this.namespace»" Value="«this.namespace»" />
+<Alias Key="Target" Value="«this.namespace».Store" />
+<EntityContainerMapping CdmEntityContainer="«this.namespace»Container" StorageEntityContainer="«this.namespace»TargetContainer">
+</EntityContainerMapping>
+</Mapping>
+</edmx:Mappings>
+</edmx:Runtime>
+<!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+<edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+<edmx:Connection>
+<DesignerInfoPropertySet>
+<DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+</DesignerInfoPropertySet>
+</edmx:Connection>
+<edmx:Options>
+<DesignerInfoPropertySet>
+<DesignerProperty Name="ValidateOnBuild" Value="true" />
+<DesignerProperty Name="EnablePluralization" Value="False" />
+</DesignerInfoPropertySet>
+</edmx:Options>
+<!-- Diagram content (shape and connector positions) -->
+<edmx:Diagrams>
+<Diagram Name="«this.namespace»" >
+</Diagram>
+</edmx:Diagrams>
+</edmx:Designer>
+</edmx:Edmx>
+
+«ENDDEFINE»
+
+«DEFINE entitySource(String namespace) FOR soamodel::Entity»
+	«IF this.superType != null»
+		<EntityType Name="«this.EFentityName()»" BaseType="«namespace».«this.superType.EFentityName()»">
+	«ELSE»
+		<EntityType Name="«this.EFentityName()»">
+	«ENDIF»
+	<Key>
+	<PropertyRef Name="«this.idname()»" />
+	</Key>
+	«FOREACH this.attributes AS attribute-»
+	«IF soamodel::Entity.isInstance(attribute.attributeType)»
+		«IF this.name != attribute.attributeType.name»
+			<NavigationProperty Name="«attribute.name»" ToRole="«attribute.attributeType.EFentityName()»" FromRole="«this.EFentityName()»" Relationship="«namespace».«this.EFentityName()»«attribute.attributeType.EFentityName()»«attribute.name»"/>
+		«ELSE»
+			<NavigationProperty Name="«attribute.name»" ToRole="«attribute.attributeType.EFentityName()»_1" FromRole="«this.EFentityName()»" Relationship="«namespace».«this.EFentityName()»«attribute.attributeType.EFentityName()»«attribute.name»"/>
+		«ENDIF»
+	«ELSE»
+		«IF soamodel::CollectionType.isInstance(attribute.attributeType)»
+			«IF soamodel::Entity.isInstance(((CollectionType)attribute.attributeType).itemType)»
+				«IF this.name != ((CollectionType)attribute.attributeType).itemType.name»
+					<NavigationProperty Name="«attribute.name»" ToRole="«((CollectionType)attribute.attributeType).itemType.EFentityName()»" FromRole="«this.EFentityName()»" Relationship="«namespace».«this.EFentityName()»«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.name»Collection"/>
+				«ELSE»
+					<NavigationProperty Name="«attribute.name»" ToRole="«((CollectionType)attribute.attributeType).itemType.EFentityName()»_1" FromRole="«this.EFentityName()»" Relationship="«namespace».«this.EFentityName()»«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.name»Collection"/>
+				«ENDIF»
+			«ELSE»
+				«REM»this is the new entity place which will be defined below«ENDREM»
+				<NavigationProperty Name="«attribute.name»" ToRole="«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.builtInExt()»" FromRole="«this.EFentityName()»" Relationship="«namespace».«this.EFentityName()»«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.name»Collection"/>
+			«ENDIF»
+		«ELSE»
+			<Property Type="«attribute.attributeType.csharpAttributeName()-»" Name="«attribute.name»" «attribute.efIDattributes()» />
+		«ENDIF»
+	«ENDIF»
+	«ENDFOREACH-»
+	</EntityType>
+	«REM»determine that this entity uses some kind of collection of built in data type, because in that case we need to use a new entity (navigation poperty already defined):«ENDREM»
+	«FOREACH this.attributes AS attribute-»
+		«IF CollectionType.isInstance(attribute.attributeType)»
+			«IF BuiltInDataType.isInstance(((CollectionType)attribute.attributeType).itemType)»
+				<EntityType Name="«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.builtInExt()»">
+					<Key>
+					<PropertyRef Name="Id" />«REM»all entities must have ID«ENDREM»
+					</Key>
+					<Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity"/>
+					<Property Type="«((CollectionType)attribute.attributeType).itemType.csharpAttributeName()»" Name="«attribute.name»" Nullable="true"/>
+				</EntityType>
+			«ENDIF»
+		«ENDIF»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+
+«REM»
+«DEFINE entityDesigner FOR soamodel::Entity»
+<EntityTypeShape EntityType="«namespace».«this.EFentityName()»" Width="1.5" PointX="2.125" PointY="1.375" Height="1.211080729166667" />
+«ENDDEFINE»
+
+«DEFINE entityDesigner FOR soamodel::BuiltInDataType»
+«ENDDEFINE»
+«DEFINE entityDesigner FOR soamodel::Enum»
+«ENDDEFINE»
+«DEFINE entityDesigner FOR soamodel::CollectionType»
+«ENDDEFINE»«ENDREM»
+
+
+«DEFINE entitySetSource(String namespace) FOR soamodel::Entity»
+<EntitySet Name="«this.EFentityName()»Set" EntityType="«namespace».«this.EFentityName()»" />
+«ENDDEFINE»
+
+
+«DEFINE associationSetSource(String namespace) FOR soamodel::Entity»
+	«FOREACH this.attributes AS attribute-»
+		«IF soamodel::Entity.isInstance(attribute.attributeType)»
+		<AssociationSet Name="«this.EFentityName()»«attribute.attributeType.EFentityName()»«attribute.name»" Association="«namespace».«this.EFentityName()»«attribute.attributeType.EFentityName()»«attribute.name»">
+		  <End Role="«this.EFentityName()»" EntitySet="«this.EFentityName()»Set" />
+		  «IF this.name != attribute.attributeType.name»
+		  	<End Role="«attribute.attributeType.EFentityName()»" EntitySet="«attribute.attributeType.EFentityName()»Set" />
+		  «ELSE»
+		  	<End Role="«attribute.attributeType.EFentityName()»_1" EntitySet="«attribute.attributeType.EFentityName()»Set" />
+		  «ENDIF»
+		</AssociationSet>
+		«ELSEIF soamodel::CollectionType.isInstance(attribute.attributeType)»
+			«IF soamodel::Entity.isInstance(((CollectionType)attribute.attributeType).itemType) || soamodel::BuiltInDataType.isInstance(((CollectionType)attribute.attributeType).itemType)»
+			<AssociationSet Name="«this.EFentityName()»«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.name»Collection" Association="«namespace».«this.EFentityName()»«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.name»Collection">
+			  <End Role="«this.EFentityName()»" EntitySet="«this.EFentityName()»Set" />
+			  «IF this.name != ((CollectionType)attribute.attributeType).itemType.name»
+				  <End Role="«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.builtInExt()»" EntitySet="«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.builtInExt()»Set" />
+			  «ELSE»
+			  	  <End Role="«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.builtInExt()»_1" EntitySet="«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.builtInExt()»Set" />
+			  «ENDIF»
+			</AssociationSet>
+			  «IF soamodel::BuiltInDataType.isInstance(((CollectionType)attribute.attributeType).itemType)»
+				  <EntitySet Name="«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.builtInExt()»Set" EntityType="«namespace».«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.builtInExt()»" />
+			  «ENDIF»
+			«ENDIF»
+		«ENDIF»
+	«ENDFOREACH-»
+«ENDDEFINE»
+
+
+«DEFINE assocSource(String namespace) FOR soamodel::Entity»
+	«FOREACH this.attributes AS attribute-»
+		«IF soamodel::Entity.isInstance(attribute.attributeType)»
+		<Association Name="«this.EFentityName()»«attribute.attributeType.EFentityName()»«attribute.name»">
+			<End Role="«this.EFentityName()»" Type="«namespace».«this.EFentityName()»" Multiplicity="0..1"/>
+			«IF this.name != attribute.attributeType.name»
+				<End Role="«attribute.attributeType.EFentityName()»" Type="«namespace».«attribute.attributeType.EFentityName()»" Multiplicity="0..1"/>
+			«ELSE»
+				<End Role="«attribute.attributeType.EFentityName()»_1" Type="«namespace».«attribute.attributeType.EFentityName()»" Multiplicity="0..1"/>
+			«ENDIF»
+		</Association>
+		«ELSEIF soamodel::CollectionType.isInstance(attribute.attributeType)»
+			«IF soamodel::Entity.isInstance(((CollectionType)attribute.attributeType).itemType) || soamodel::BuiltInDataType.isInstance(((CollectionType)attribute.attributeType).itemType)»
+			<Association Name="«this.EFentityName()»«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.name»Collection">
+			 	«IF soamodel::BuiltInDataType.isInstance(((CollectionType)attribute.attributeType).itemType)»
+			 		<End Role="«this.EFentityName()»" Type="«namespace».«this.EFentityName()»" Multiplicity="1"/>
+			 	«ELSE»
+			 		<End Role="«this.EFentityName()»" Type="«namespace».«this.EFentityName()»" Multiplicity="*"/>
+			 	«ENDIF»
+			 	«IF this.name != ((CollectionType)attribute.attributeType).itemType.name»
+					<End Role="«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.builtInExt()»" Type="«namespace».«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.builtInExt()»" Multiplicity="*"/>
+				«ELSE»
+					<End Role="«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.builtInExt()»_1" Type="«namespace».«((CollectionType)attribute.attributeType).itemType.EFentityName()»«attribute.builtInExt()»" Multiplicity="*"/>
+				«ENDIF»
+			</Association>
+			«ENDIF»
+		«ENDIF»
+	«ENDFOREACH-»
+«ENDDEFINE»

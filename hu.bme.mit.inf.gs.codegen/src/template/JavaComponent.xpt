@@ -1,0 +1,251 @@
+«IMPORT soamodel»
+«EXTENSION template::EntityNameExtension»
+«DEFINE componentSource FOR soamodel::JEEComponent»
+
+«REM» ==================== hu/bme/mit/inf/gs/AppStore/name/InameComponent.java ==================== «ENDREM»
+«FILE "//" + name.toString() + "//src//hu//bme/mit//inf//gs//AppStore//" + name.toString() + "//I" + name.toString() + "Component.java"»
+// Generated file
+// for «name» component.
+// This component is for JEE.
+
+package hu.bme.mit.inf.gs.AppStore.«name»;
+
+import hu.bme.mit.inf.gs.AppStore.«name».model.*;
+import javax.ws.rs.*;
+
+public interface I«name»Component {
+    	«EXPAND JavaMethod::javaMethodInterfaceSource FOREACH this.methods»  
+}
+
+«ENDFILE»
+
+«REM» ==================== hu/bme/mit/inf/gs/AppStore/name/nameComponent.java ==================== «ENDREM»
+«FILE name.toString() + "//src//hu//bme/mit//inf//gs//AppStore//" + name.toString() + "//" + name.toString() + "Component.java"»
+// Generated file
+// for «name» component.
+// This component is for JEE.
+
+package hu.bme.mit.inf.gs.AppStore.«name»;
+
+import hu.bme.mit.inf.gs.AppStore.«name».model.*;
+import javax.ws.rs.Path;
+
+@Path("/")
+public class «name»Component implements I«name»Component {
+        «EXPAND JavaMethod::javaMethodClassSource FOREACH this.methods»  
+}
+
+«ENDFILE»
+
+«REM» ==================== .project ==================== «ENDREM»
+«FILE name.toString() + "//.project"»<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+    <name>hu.bme.mit.inf.gs.Appstore.«this.name»</name>
+    <comment></comment>
+    <projects>
+    </projects>
+    <buildSpec>
+        <buildCommand>
+            <name>org.eclipse.wst.jsdt.core.javascriptValidator</name>
+            <arguments>
+            </arguments>
+        </buildCommand>
+        <buildCommand>
+            <name>org.eclipse.jdt.core.javabuilder</name>
+            <arguments>
+            </arguments>
+        </buildCommand>
+        <buildCommand>
+            <name>org.eclipse.wst.common.project.facet.core.builder</name>
+            <arguments>
+            </arguments>
+        </buildCommand>
+        <buildCommand>
+            <name>org.eclipse.wst.validation.validationbuilder</name>
+            <arguments>
+            </arguments>
+        </buildCommand>
+    </buildSpec>
+    <natures>
+        <nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
+        <nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
+        <nature>org.eclipse.wst.common.project.facet.core.nature</nature>
+        <nature>org.eclipse.jdt.core.javanature</nature>
+        <nature>org.eclipse.wst.jsdt.core.jsNature</nature>
+    </natures>
+</projectDescription>
+«ENDFILE»
+
+«REM» ==================== .classpath ==================== «ENDREM»
+«REM» TODO: ezt nem biztos hogy igy akarjuk a vegleges verzioban is «ENDREM»
+«FILE name.toString() + "//.classpath"»<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre7">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/MDSD Apache Tomcat v7.0">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.web"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/asm-3.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/derby.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/eclipselink.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-jaxrs-1.9.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-mapper-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-xc-1.9.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.persistence_1.0.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.persistence_2.0.3.v201010191057.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jersey-client-1.12.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jersey-core-1.12.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jersey-json-1.12.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jersey-server-1.12.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jersey-servlet-1.12.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jettison-1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jsr311-api-1.1.1.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
+
+«ENDFILE»
+
+«REM» ==================== /WebContent/WEB-INF/web.xml ==================== «ENDREM»
+«FILE name.toString() + "//WebContent/WEB-INF//web.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>«this.name»</display-name>
+  <servlet>
+    <servlet-name>GS Jersey REST Service</servlet-name>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>com.sun.jersey.config.property.packages</param-name>
+      <param-value>hu.bme.mit.inf.gs.AppStore.«this.name»</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GS Jersey REST Service</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
+</web-app>
+«ENDFILE»
+
+«REM» ==================== /WebConent/META-INF/MANIFEST.MF ==================== «ENDREM»
+«REM» note the newline at the end of the manifest file «ENDREM»
+«FILE name.toString() + "//WebContent//META-INF/MANIFEST.MF"»Manifest-Version: 1.0
+Class-Path: 
+«ENDFILE»
+
+«REM»==================== .settings//.jsdtscope ====================«ENDREM»
+«FILE name.toString() + "//.settings//.jsdtscope"»<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+    <classpathentry kind="src" path="WebContent"/>
+    <classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+    <classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.WebProject">
+        <attributes>
+            <attribute name="hide" value="true"/>
+        </attributes>
+    </classpathentry>
+    <classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.baseBrowserLibrary"/>
+    <classpathentry kind="output" path=""/>
+</classpath>
+«ENDFILE»
+
+«REM» ==================== .settings/org.eclipse.jdt.core.prefs ==================== «ENDREM»
+«FILE name.toString() + "//.settings//org.eclipse.jdt.core.prefs"»#Sat Mar 31 12:25:37 CEST 2012
+eclipse.preferences.version=1
+org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
+org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.7
+org.eclipse.jdt.core.compiler.compliance=1.7
+org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
+org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
+org.eclipse.jdt.core.compiler.source=1.7
+«ENDFILE»
+
+«REM» ==================== .settings/org.eclipse.wst.common.component ==================== «ENDREM»
+«FILE name.toString() + "//.settings//org.eclipse.wst.common.component"»<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="«this.name»Component">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <property name="context-root" value="«this.name»Component"/>
+        <property name="java-output-path" value="/hu.bme.mit.inf.gs.AppStore.«this.name»Component/build/classes"/>
+    </wb-module>
+</project-modules>
+«ENDFILE»
+
+«REM» ==================== .settings/org.eclipse.wst.common.project.facet.core.xml ==================== «ENDREM»
+«FILE name.toString() + "//.settings//org.eclipse.wst.common.project.facet.core.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<faceted-project>
+  <runtime name="MDSD Apache Tomcat v7.0"/>«REM»TODO: this will only work on my configuration (u944eq)«ENDREM»
+  <fixed facet="java"/>
+  <fixed facet="jst.web"/>
+  <fixed facet="wst.jsdt.web"/>
+  <installed facet="java" version="1.7"/>
+  <installed facet="jst.web" version="3.0"/>
+  <installed facet="wst.jsdt.web" version="1.0"/>
+</faceted-project>
+«ENDFILE»
+
+«REM» ==================== .settings/org.eclipse.wst.jsdt.ui.superType.container ==================== «ENDREM»
+«FILE name.toString() + "//.settings//org.eclipse.wst.jsdt.ui.superType.container"»org.eclipse.wst.jsdt.launching.baseBrowserLibrary«ENDFILE»
+
+«REM» ==================== .settings/org.eclipse.wst.jsdt.ui.superType.name ==================== «ENDREM»
+«FILE name.toString() + "//.settings//org.eclipse.wst.jsdt.ui.superType.name"»Window«ENDFILE»
+
+«REM» ==================== model/persistence.xml ==================== «ENDREM»
+«FILE this.name + "//model//persistence.xml" JEE_OUTLET»<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+    version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+    <persistence-unit name="hu.bme.mit.inf.gs.AppStore.«this.name».PersistenceUnit" transaction-type="RESOURCE_LOCAL">
+        «FOREACH this.persists AS e»
+                <class>hu.bme.mit.inf.gs.AppStore.«this.name».model.«entityName(e)»</class>
+        «ENDFOREACH»
+        
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:derby:«this.name»;create=true" />
+
+            <!-- EclipseLink should create the database schema automatically -->
+            <!-- for resetting the database -->
+            	<!-- <property name="eclipselink.ddl-generation" value="drop-and-create-tables" /> -->
+            <!-- for normal startup of the component -->
+            	<property name="eclipselink.ddl-generation" value="create-tables" />
+            	
+            <property name="eclipselink.ddl-generation.output-mode" value="database" />
+            
+            <!-- Logging Settings -->
+            <property name="eclipselink.logging.level" value="WARNING" />
+            <property name="eclipselink.logging.thread" value="false" />
+            <property name="eclipselink.logging.session" value="false" />
+            <property name="eclipselink.logging.exceptions" value="true" />
+            <property name="eclipselink.logging.timestamp" value="false"/>     
+        </properties>
+
+    </persistence-unit>
+</persistence>
+«ENDFILE»
+
+«REM» ====================  ==================== «ENDREM»
+«FOREACH this.persists AS entity»
+    «IF soamodel::Entity.isInstance(entity)»
+        «EXPAND Entity::javaSource FOR entity»
+    «ENDIF»
+«ENDFOREACH»
+
+«FOREACH this.inArchitecture.dataTypes AS e»
+    «IF soamodel::Enum.isInstance(e)»
+        «FILE this.name + "//model//" + entityName(e) + ".java" JEE_OUTLET»
+            package «((String)GLOBALVAR JavaComponentPackage)+"."+this.name+".model"»;
+            «EXPAND Entity::javaEnumSource FOR (Enum)e»
+        «ENDFILE»
+    «ENDIF»
+«ENDFOREACH»
+
+«ENDDEFINE»
+

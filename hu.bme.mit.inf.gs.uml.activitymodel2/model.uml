@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_4JpFgGYCEeGw5q3BNsXYNg" name="model">
+  <packagedElement xmi:type="uml:Activity" xmi:id="_4JrhwGYCEeGw5q3BNsXYNg" name="AppStore">
+    <ownedParameter xmi:id="_-06qsGYCEeGw5q3BNsXYNg" name="Upload New Application"/>
+    <node xmi:type="uml:ActivityParameterNode" xmi:id="_-1SeIGYCEeGw5q3BNsXYNg" name="Upload Application" outgoing="_VblBoGYbEeGw5q3BNsXYNg _FwMRgGcFEeGFxtytOq1SFA" isControlType="true" parameter="_-06qsGYCEeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_PeYDYGYbEeGw5q3BNsXYNg" name="Start binary uploading" outgoing="_akTO8GYbEeGw5q3BNsXYNg" incoming="_Tezy8GYbEeGw5q3BNsXYNg _VblBoGYbEeGw5q3BNsXYNg _W9fOgGcGEeGFxtytOq1SFA"/>
+    <node xmi:type="uml:InitialNode" xmi:id="_SIqfYGYbEeGw5q3BNsXYNg" name="InitialNode1" outgoing="_Tezy8GYbEeGw5q3BNsXYNg _E1rKAGcFEeGFxtytOq1SFA"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_YX3zoGYbEeGw5q3BNsXYNg" name="DecisionNode1" outgoing="_fcYYMGYbEeGw5q3BNsXYNg _iedpIGYbEeGw5q3BNsXYNg _kjI2oGYbEeGw5q3BNsXYNg" incoming="_akTO8GYbEeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_cNmIAGYbEeGw5q3BNsXYNg" name="Close upload with errors" outgoing="_vOPR8GYcEeGw5q3BNsXYNg _KtoxAGcHEeGFxtytOq1SFA _sB-WMHnkEeG8nM8hUQ7qpA" incoming="_fcYYMGYbEeGw5q3BNsXYNg _kjI2oGYbEeGw5q3BNsXYNg _lNZfIGYcEeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:ForkNode" xmi:id="_hzjD4GYbEeGw5q3BNsXYNg" name="ForkNode1" outgoing="_4IzOoGYbEeGw5q3BNsXYNg _6I-WoGYbEeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_ql3OEGYbEeGw5q3BNsXYNg" name="Save to AppRepository" outgoing="_PtluoGYcEeGw5q3BNsXYNg" incoming="_6I-WoGYbEeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_sU3GgGYbEeGw5q3BNsXYNg" name="Unverified Application uploaded" outgoing="_TRKjEGYcEeGw5q3BNsXYNg _yxHtgGcGEeGFxtytOq1SFA _CKnAAGcHEeGFxtytOq1SFA" incoming="_4IzOoGYbEeGw5q3BNsXYNg _iedpIGYbEeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:JoinNode" xmi:id="_85f9gGYbEeGw5q3BNsXYNg" name="JoinNode1" outgoing="_fUqKIGYcEeGw5q3BNsXYNg" incoming="_PtluoGYcEeGw5q3BNsXYNg _TRKjEGYcEeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:DataStoreNode" xmi:id="_EI6xkGYcEeGw5q3BNsXYNg" name="ApplicationData"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_drWqAGYcEeGw5q3BNsXYNg" name="Start metadata uploading" outgoing="_joO4IGYcEeGw5q3BNsXYNg _3-PIEGcFEeGFxtytOq1SFA" incoming="_fUqKIGYcEeGw5q3BNsXYNg _cdXXkGcGEeGFxtytOq1SFA"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_i9fSAGYcEeGw5q3BNsXYNg" name="DecisionNode2" outgoing="_lNZfIGYcEeGw5q3BNsXYNg _qr0PoGYcEeGw5q3BNsXYNg" incoming="_joO4IGYcEeGw5q3BNsXYNg _3-PIEGcFEeGFxtytOq1SFA"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_pCEDkGYcEeGw5q3BNsXYNg" name="ApplicationMetadata Uploaded" outgoing="_xdUYoGYcEeGw5q3BNsXYNg _qUk_AGcGEeGFxtytOq1SFA _wa5dAGcGEeGFxtytOq1SFA" incoming="_qr0PoGYcEeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:FlowFinalNode" xmi:id="_tZbFYGYcEeGw5q3BNsXYNg" name="FlowFinalNode1" incoming="_zrrtoGYcEeGw5q3BNsXYNg _VoHhkGcHEeGFxtytOq1SFA"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_t4WdEGYcEeGw5q3BNsXYNg" name="DecisionNode3" outgoing="_zrrtoGYcEeGw5q3BNsXYNg" incoming="_vOPR8GYcEeGw5q3BNsXYNg _xdUYoGYcEeGw5q3BNsXYNg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_7PSekGcEEeGFxtytOq1SFA" name="Create Application" outgoing="_bYi6AGcFEeGFxtytOq1SFA _V6C0gGcGEeGFxtytOq1SFA" incoming="_E1rKAGcFEeGFxtytOq1SFA _FwMRgGcFEeGFxtytOq1SFA"/>
+    <node xmi:type="uml:DataStoreNode" xmi:id="_I99OAGcFEeGFxtytOq1SFA" name="Application"/>
+    <node xmi:type="uml:CreateObjectAction" xmi:id="_YRY70GcFEeGFxtytOq1SFA" name="Application entity" incoming="_bYi6AGcFEeGFxtytOq1SFA">
+      <result xmi:id="_YRcmMGcFEeGFxtytOq1SFA" name="result"/>
+    </node>
+    <node xmi:type="uml:ForkNode" xmi:id="_U97KgGcGEeGFxtytOq1SFA" name="ForkNode2" outgoing="_W9fOgGcGEeGFxtytOq1SFA _cdXXkGcGEeGFxtytOq1SFA" incoming="_V6C0gGcGEeGFxtytOq1SFA"/>
+    <node xmi:type="uml:CreateObjectAction" xmi:id="_m1HOgGcGEeGFxtytOq1SFA" name="ApplicationMetadata" incoming="_qUk_AGcGEeGFxtytOq1SFA">
+      <result xmi:id="_m1H1kGcGEeGFxtytOq1SFA" name="result"/>
+    </node>
+    <node xmi:type="uml:JoinNode" xmi:id="_vtMpgGcGEeGFxtytOq1SFA" name="JoinNode2" outgoing="_SazRAGcHEeGFxtytOq1SFA" incoming="_wa5dAGcGEeGFxtytOq1SFA _yxHtgGcGEeGFxtytOq1SFA"/>
+    <node xmi:type="uml:CreateObjectAction" xmi:id="__hPKAGcGEeGFxtytOq1SFA" name="ApplicationVersion" incoming="_CKnAAGcHEeGFxtytOq1SFA">
+      <result xmi:id="__hPKAWcGEeGFxtytOq1SFA" name="result"/>
+    </node>
+    <node xmi:type="uml:DecisionNode" xmi:id="_J9REAGcHEeGFxtytOq1SFA" name="DecisionNode4" outgoing="_VoHhkGcHEeGFxtytOq1SFA" incoming="_KtoxAGcHEeGFxtytOq1SFA _UMjigGcHEeGFxtytOq1SFA"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_NZFDkGcHEeGFxtytOq1SFA" name="Close upload with success" outgoing="_UMjigGcHEeGFxtytOq1SFA _tNOBUHnkEeG8nM8hUQ7qpA" incoming="_SazRAGcHEeGFxtytOq1SFA"/>
+    <node xmi:type="uml:ActivityFinalNode" xmi:id="_q7CjUHnkEeG8nM8hUQ7qpA" name="ActivityFinalNode1" incoming="_sB-WMHnkEeG8nM8hUQ7qpA"/>
+    <node xmi:type="uml:ActivityFinalNode" xmi:id="_rLuqsHnkEeG8nM8hUQ7qpA" name="ActivityFinalNode2" incoming="_tNOBUHnkEeG8nM8hUQ7qpA"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_Tezy8GYbEeGw5q3BNsXYNg" name="uplst1" source="_SIqfYGYbEeGw5q3BNsXYNg" target="_PeYDYGYbEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_VblBoGYbEeGw5q3BNsXYNg" name="upst2" source="_-1SeIGYCEeGw5q3BNsXYNg" target="_PeYDYGYbEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_akTO8GYbEeGw5q3BNsXYNg" name="upl_con" source="_PeYDYGYbEeGw5q3BNsXYNg" target="_YX3zoGYbEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_fcYYMGYbEeGw5q3BNsXYNg" name="upclose_er" source="_YX3zoGYbEeGw5q3BNsXYNg" target="_cNmIAGYbEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_iedpIGYbEeGw5q3BNsXYNg" name="[upload successful]" source="_YX3zoGYbEeGw5q3BNsXYNg" target="_sU3GgGYbEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_kjI2oGYbEeGw5q3BNsXYNg" name="[upload failed]" source="_YX3zoGYbEeGw5q3BNsXYNg" target="_cNmIAGYbEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_4IzOoGYbEeGw5q3BNsXYNg" name="su1" source="_hzjD4GYbEeGw5q3BNsXYNg" target="_sU3GgGYbEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_6I-WoGYbEeGw5q3BNsXYNg" name="su2" source="_hzjD4GYbEeGw5q3BNsXYNg" target="_ql3OEGYbEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_PtluoGYcEeGw5q3BNsXYNg" name="ret1" source="_ql3OEGYbEeGw5q3BNsXYNg" target="_85f9gGYbEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_TRKjEGYcEeGw5q3BNsXYNg" name="ret2" source="_sU3GgGYbEeGw5q3BNsXYNg" target="_85f9gGYbEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_fUqKIGYcEeGw5q3BNsXYNg" name="metaup1" source="_85f9gGYbEeGw5q3BNsXYNg" target="_drWqAGYcEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_joO4IGYcEeGw5q3BNsXYNg" name="uplmet2" source="_drWqAGYcEeGw5q3BNsXYNg" target="_i9fSAGYcEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_lNZfIGYcEeGw5q3BNsXYNg" name="[metadata upload failed]" source="_i9fSAGYcEeGw5q3BNsXYNg" target="_cNmIAGYbEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_qr0PoGYcEeGw5q3BNsXYNg" name="[metadata upload successful]" source="_i9fSAGYcEeGw5q3BNsXYNg" target="_pCEDkGYcEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_vOPR8GYcEeGw5q3BNsXYNg" name="ex1" source="_cNmIAGYbEeGw5q3BNsXYNg" target="_t4WdEGYcEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_xdUYoGYcEeGw5q3BNsXYNg" name="ex2" source="_pCEDkGYcEeGw5q3BNsXYNg" target="_t4WdEGYcEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_zrrtoGYcEeGw5q3BNsXYNg" name="exfin" source="_t4WdEGYcEeGw5q3BNsXYNg" target="_tZbFYGYcEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_E1rKAGcFEeGFxtytOq1SFA" name="c1" source="_SIqfYGYbEeGw5q3BNsXYNg" target="_7PSekGcEEeGFxtytOq1SFA"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_FwMRgGcFEeGFxtytOq1SFA" name="c2" source="_-1SeIGYCEeGw5q3BNsXYNg" target="_7PSekGcEEeGFxtytOq1SFA"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_bYi6AGcFEeGFxtytOq1SFA" name="create" source="_7PSekGcEEeGFxtytOq1SFA" target="_YRY70GcFEeGFxtytOq1SFA"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_3-PIEGcFEeGFxtytOq1SFA" name="um1" source="_drWqAGYcEeGw5q3BNsXYNg" target="_i9fSAGYcEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_V6C0gGcGEeGFxtytOq1SFA" name="i9n1" source="_7PSekGcEEeGFxtytOq1SFA" target="_U97KgGcGEeGFxtytOq1SFA"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_W9fOgGcGEeGFxtytOq1SFA" name="o1" source="_U97KgGcGEeGFxtytOq1SFA" target="_PeYDYGYbEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_cdXXkGcGEeGFxtytOq1SFA" name="o2" source="_U97KgGcGEeGFxtytOq1SFA" target="_drWqAGYcEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_qUk_AGcGEeGFxtytOq1SFA" name="create" source="_pCEDkGYcEeGw5q3BNsXYNg" target="_m1HOgGcGEeGFxtytOq1SFA"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_wa5dAGcGEeGFxtytOq1SFA" name="jn1" source="_pCEDkGYcEeGw5q3BNsXYNg" target="_vtMpgGcGEeGFxtytOq1SFA"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_yxHtgGcGEeGFxtytOq1SFA" name="jn2" source="_sU3GgGYbEeGw5q3BNsXYNg" target="_vtMpgGcGEeGFxtytOq1SFA"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_CKnAAGcHEeGFxtytOq1SFA" name="create" source="_sU3GgGYbEeGw5q3BNsXYNg" target="__hPKAGcGEeGFxtytOq1SFA"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_KtoxAGcHEeGFxtytOq1SFA" name="fin1" source="_cNmIAGYbEeGw5q3BNsXYNg" target="_J9REAGcHEeGFxtytOq1SFA"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_SazRAGcHEeGFxtytOq1SFA" name="succlose" source="_vtMpgGcGEeGFxtytOq1SFA" target="_NZFDkGcHEeGFxtytOq1SFA"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_UMjigGcHEeGFxtytOq1SFA" name="fin2" source="_NZFDkGcHEeGFxtytOq1SFA" target="_J9REAGcHEeGFxtytOq1SFA"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_VoHhkGcHEeGFxtytOq1SFA" name="end" source="_J9REAGcHEeGFxtytOq1SFA" target="_tZbFYGYcEeGw5q3BNsXYNg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_sB-WMHnkEeG8nM8hUQ7qpA" name="fin1" source="_cNmIAGYbEeGw5q3BNsXYNg" target="_q7CjUHnkEeG8nM8hUQ7qpA"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_tNOBUHnkEeG8nM8hUQ7qpA" name="fin2" source="_NZFDkGcHEeGFxtytOq1SFA" target="_rLuqsHnkEeG8nM8hUQ7qpA"/>
+  </packagedElement>
+</uml:Model>

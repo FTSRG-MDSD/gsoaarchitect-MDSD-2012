@@ -1,0 +1,159 @@
+import soamodel;
+import ecore;
+
+
+
+//For determining the name of an entity
+String entityName(Object param) :
+	switch {
+		case soamodel::Entity.isInstance(param) : stringSafetifier(((Entity)param).name + "Entity")
+		case soamodel::Enum.isInstance(param) : stringSafetifier(((Enum)param).name + "Enum")
+		case soamodel::CollectionType.isInstance(param) : "NOT_USED -- there is no platform independent name for collections" //"java.util.ArrayList<" + entityName(((CollectionType)param).itemType) + ">"
+		case soamodel::BuiltInDataType.isInstance(param) : stringSafetifier(((BuiltInDataType)param).name)
+		case param == null : "void"
+		default : "ENTITY_NAME_ERROR:" + param.toString()
+	};
+
+String RESTReturnEntityName(Object param):
+    switch {
+        case soamodel::Entity.isInstance(param) : entityName(param)
+        case soamodel::Enum.isInstance(param) : entityName(param)
+        case soamodel::CollectionType.isInstance(param) : "java.util.List<" + entityFullJavaName(((CollectionType)param).itemType) + ">"
+        case soamodel::BuiltInDataType.isInstance(param) : bidtFullJavaName((BuiltInDataType)param)
+        case param == null : "String"
+        default : "ENTITY_NAME_ERROR @ ENTITYFULLJAVANAME:" + param.toString()
+    };
+    
+String RESTReturnValue(Object param):
+    switch {
+        case 
+        	soamodel::Entity.isInstance(param) || 
+        	soamodel::Enum.isInstance(param) ||
+        	soamodel::CollectionType.isInstance(param) || 
+        	soamodel::BuiltInDataType.isInstance(param) : "null"
+        case param == null : "\"TODO: fill return value\""
+        default : "ENTITY_NAME_ERROR @ ENTITYFULLJAVANAME:" + param.toString()
+    };
+
+//For determining the name of an Entity Framework entity
+EFentityName(Object param) :
+	switch {
+		case soamodel::Entity.isInstance(param) : stringSafetifier(((Entity)param).name + "Entity")
+		case soamodel::Enum.isInstance(param) : stringSafetifier(((Enum)param).name + "Enum")
+		case soamodel::CollectionType.isInstance(param) : entityName(((CollectionType)param).itemType) + "Collection"
+		case soamodel::BuiltInDataType.isInstance(param) : ((BuiltInDataType)param).name
+		case param == null : "void"
+		default : "ENTITY_NAME_ERROR:" + param.toString()
+	};
+	
+	
+//For determining the full java name of an entity
+String entityFullJavaName(Object param) :
+	switch {
+		case soamodel::Entity.isInstance(param) : entityName(param)
+		case soamodel::Enum.isInstance(param) : entityName(param)
+		case soamodel::CollectionType.isInstance(param) : "java.util.List<" + entityFullJavaName(((CollectionType)param).itemType) + ">"
+		case soamodel::BuiltInDataType.isInstance(param) : bidtFullJavaName((BuiltInDataType)param)
+		case param == null : "void"
+		default : "ENTITY_NAME_ERROR @ ENTITYFULLJAVANAME:" + param.toString()
+	};
+		
+bidtFullJavaName(BuiltInDataType param) :
+	switch (param.name.toLowerCase()) {
+		case "string" : "java.lang.String"
+		case "int" : "int"
+		case "integer" : "int" //"java.lang.Integer"
+		case "double" : "double" //"java.lang.Double"
+		case "date" : "java.util.Date"
+		case "datetime" : "java.util.Date"
+		default : "ENTITY_NAME_ERROR @ BIDTFULLJAVANAME, unknown type: " + param.name.toLowerCase()
+	};		
+	
+//For determining the full C# name of an entity
+String entityFullCSharpName(Object param) :
+	switch {
+		case soamodel::Entity.isInstance(param) : entityName(param)
+		case soamodel::Enum.isInstance(param) : "int"
+		case soamodel::CollectionType.isInstance(param) : "System.Collections.Generic.List<" + entityFullCSharpName(((CollectionType)param).itemType) + ">"
+		case soamodel::BuiltInDataType.isInstance(param) : bidtFullCSharpName((BuiltInDataType)param)
+		case param == null : "void"
+		default : "ENTITY_NAME_ERROR @ ENTITYFULLCSHARPNAME:" + param.toString()
+	};
+		
+bidtFullCSharpName(BuiltInDataType param) :
+	switch (param.name.toLowerCase()) {
+		case "string" : "string"
+		case "int" : "int"
+		case "integer" : "int"
+		case "double" : "double"
+		case "date" : "System.DateTime"
+		case "datetime" : "System.DateTime"
+		default : "ENTITY_NAME_ERROR @ BIDTFULLCSHARPNAME, unknown type: " + param.name.toLowerCase()
+	};	
+
+//For determining the full C# name of an boundary entity
+String entityFullBoundaryCSharpName(Object param) :
+	switch {
+		case soamodel::Entity.isInstance(param) : stringSafetifier(((Entity)param).name + "BoundaryEntity")
+		case soamodel::Enum.isInstance(param) : "int" //entityName(param)
+		case soamodel::CollectionType.isInstance(param) : "System.Collections.Generic.List<" + entityFullBoundaryCSharpName(((CollectionType)param).itemType) + ">"
+		case soamodel::BuiltInDataType.isInstance(param) : bidtFullCSharpName((BuiltInDataType)param)
+		case param == null : "void"
+		default : "ENTITY_NAME_ERROR @ ENTITYFULLCSHARPNAME:" + param.toString()
+	};
+
+// for Entity Framework model
+csharpAttributeNameHelper(DataType param) :
+switch (param.name.toLowerCase()) {
+	case "string" : "String"
+	case "int" : "Int32"
+	case "integer" : "Int32" //"java.lang.Integer"
+	case "double" : "Double" //"java.lang.Double"
+	case "date" : "DateTime"
+	case "datetime" : "DateTime"
+	default : "ENTITY_NAME_ERROR@csharpAttributeName,unknowntype:" + param.name.toLowerCase()
+};	
+csharpAttributeName(DataType param) :
+	soamodel::Enum.isInstance(param)?"Int32":csharpAttributeNameHelper(param);
+
+stringSafetifier(String str) : 
+	//check for reserved words
+	{ "abstract", "add", "alias", "as", "ascending", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue", "decimal", "default", "delegate", "descending", "do", "double", "dynamic", "else", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float", "for", "foreach", "from", "get", "global", "goto", "group", "if", "implicit", "in", "int", "interface", "internal", "into", "is", "join", "let", "lock", "long", "namespace", "new", "null", "object", "operator", "orderby", "out", "override", "params", "partial", "private", "protected", "public", "readonly", "ref", "remove", "return", "sbyte", "sealed", "select", "set", "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "value", "var", "virtual", "void", "volatile", "where", "while", "yield", "package", "List", "Collection" }
+		.exists(i | i == str) ? ("_" + str).replaceAll(' ','_') : str.replaceAll(' ','_') 
+;
+
+
+javaGetterName(Attribute param) :
+	"get" + param.name.toFirstUpper() + "()";
+	
+javaSetterName(Attribute param) :
+	"set" + param.name.toFirstUpper();
+	
+javaAttributeDeclarationPre(Attribute param) :
+	switch {
+		case soamodel::CollectionType.isInstance(param.attributeType) : "@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})"
+		default : ""
+};
+	
+javaAttributeDeclarationPost(Object param) :
+	switch {
+		case soamodel::CollectionType.isInstance(param) : " = new java.util.ArrayList<" + ((CollectionType)param).itemType.entityName() + ">()"
+		default : ""
+};
+
+idname(Entity param) :
+	param.ID.name;
+
+jpaIDAnnotations(Attribute param) :
+	param.attributeOf.ID == param ? (param.attributeOf.generatedID ? "@Id @GeneratedValue" : "@Id") : "";
+
+efIDattributes(Attribute param) :
+	param.attributeOf.ID == param ? (param.attributeOf.generatedID ? "Nullable=\"false\" annotation:StoreGeneratedPattern=\"Identity\"" : ( (soamodel::BuiltInDataType.isInstance(param.attributeType) && param.attributeType.name.toLowerCase().compareTo("string")==0)?"Nullable=\"false\" MaxLength=\"255\"":"Nullable=\"false\"")) : "Nullable=\"true\"";
+
+ builtInExt(Attribute param) :
+	soamodel::Entity.isInstance(((CollectionType)param.attributeType).itemType) ? "" : (soamodel::BuiltInDataType.isInstance(((CollectionType)param.attributeType).itemType) ? param.name+"Entity" : "");
+	
+	
+jpaInheritanceDeclaration(Entity param) :
+	param.superType != null ? " extends " + entityName(param.superType) : ""
+;

@@ -1,0 +1,322 @@
+«EXTENSION template::EntityNameExtension»
+
+«DEFINE componentSource FOR soamodel::CSharpComponent»
+«REM»
+A webservice interfésze.
+«ENDREM»
+«FILE name.toString() + "/I" + name.toString() + "Component.cs" CSHARP_OUTLET -»
+// Generated interface file
+// for «name» component.
+// This component is for C#.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ServiceModel;
+using System.ServiceModel.Web;
+
+namespace «namespace»
+{
+    [ServiceContract]
+    [ServiceKnownType("GetKnownTypes", typeof(«name»DataHelper))]
+    interface I«name»Component
+    {
+    	«EXPAND Method::csharpMethodInterfaceSource FOREACH this.methods»  
+    }
+}
+«ENDFILE»
+
+«REM»
+A webservice implementáció szkeletonja.
+«ENDREM»
+«FILE name.toString() + "/" + name.toString() + "Component.cs" CSHARP_OUTLET -»
+// Generated implementation file
+// for «name» component.
+// This component is for C#.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ServiceModel;
+using System.ServiceModel.Web;
+
+namespace «namespace»
+{
+    public class «name»Component : I«name»Component 
+    {
+    	«EXPAND Method::csharpMethodImplSource FOREACH this.methods»  
+    }
+}
+«ENDFILE»
+
+«REM»
+A webservice DataHelper osztálya.
+«ENDREM»
+«FILE name.toString() + "/" + name.toString() + "DataHelper.cs" CSHARP_OUTLET -»
+// Generated file
+// for «name» component's data helper.
+// This component is for C#.
+
+using System.Collections.Generic;
+using System.Reflection;
+using System;
+//using «name»;
+
+namespace «namespace»
+{
+    public static class «name.toString()»DataHelper
+    {
+        public static IEnumerable<Type> GetKnownTypes(ICustomAttributeProvider provider)
+        {
+            System.Collections.Generic.List<System.Type> knownTypes =
+                new System.Collections.Generic.List<System.Type>();
+            «FOREACH this.persists AS t -»
+            knownTypes.Add(typeof(«t.entityFullBoundaryCSharpName()»));
+            «ENDFOREACH»
+            return knownTypes;
+        }
+    }
+}
+«ENDFILE»
+
+«REM»
+A webservice futtatását végző osztály.
+«ENDREM»
+«FILE name.toString() + "/" + name.toString() + "Program.cs" CSHARP_OUTLET -»
+// Generated file
+// for «name».
+// This component is for C#.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ServiceModel;
+using System.ServiceModel.Web;
+using System.ServiceModel.Description;
+
+namespace «namespace»
+{
+    class «name»Program
+    {
+        static void Main(string[] args)
+        {
+        	WebServiceHost host = null;
+            try
+            {
+                host = new WebServiceHost(typeof(«this.name»Component),
+                    new Uri("«this.URI»"));
+                
+                // publishing metadata
+                ServiceMetadataBehavior smb = host.Description.Behaviors.Find<ServiceMetadataBehavior>();
+                if (smb == null)
+                    smb = new ServiceMetadataBehavior();
+                smb.HttpGetEnabled = true;
+                smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15; // WS-Policy 1.5
+                host.Description.Behaviors.Add(smb);
+                // Add MEX endpoint
+                host.AddServiceEndpoint(
+                  ServiceMetadataBehavior.MexContractName,
+                  MetadataExchangeBindings.CreateMexHttpBinding(),
+                  "mex"
+                );
+                var se = host.AddServiceEndpoint(typeof(I«this.name»Component), new WebHttpBinding(), "");
+                    se.Behaviors.Add(new System.ServiceModel.Description.WebHttpBehavior()
+                    {
+                        HelpEnabled = true
+                    });
+
+
+                    host.Open();
+                    Console.WriteLine("Webservice «name» started on {0}!", host.BaseAddresses.First());
+                Console.WriteLine("Press RETURN to exit!");
+                Console.ReadLine();
+                host.Close();
+            }
+            catch (Exception e)
+            {
+            	host.Abort();
+                Console.WriteLine("EXCEPTION");
+                Console.WriteLine(e.Message);
+                Console.WriteLine();
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.WriteLine("The web service must be run as an administrator.");
+                Console.ReadLine();
+            }
+        }
+    }
+}
+«ENDFILE»
+
+«REM»
+A webservice projektjét leíró fájl.
+«ENDREM»
+«FILE name.toString() + "/" + name.toString() + ".csproj" CSHARP_OUTLET -»
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{00000000-0000-0000-0000-000000000001}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>«name»</RootNamespace>
+    <AssemblyName>«name»</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Security" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="«name»Program.cs" />
+    <Compile Include="«name»Component.cs" />
+    <Compile Include="I«name»Component.cs" />
+    <Compile Include="«name»DataHelper.cs" />
+    <Compile Include="Enums.cs" />
+    «REM»<Compile Include="«name».edmx" />«ENDREM»
+  «FOREACH connectsTo AS c»
+	<Compile Include="«c.name»DataDefinition.cs" />
+  «ENDFOREACH-»
+  «FOREACH this.persists AS e -»
+  «IF soamodel::Entity.isInstance(e) -»
+    <Compile Include="BoundaryEntities\«e.entityFullBoundaryCSharpName()».cs" />
+  «ENDIF-»
+  «ENDFOREACH-»
+  </ItemGroup>
+    <ItemGroup>
+    <EntityDeploy Include="«name».edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>«name».Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="«name».Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>«name».edmx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
+«ENDFILE»
+
+«REM»generalunk hozza edmx fajlt is«ENDREM»
+«FILE name.toString() + "/" + name.toString() + ".edmx" CSHARP_OUTLET-»
+«EXPAND CSharpEFEntities::csharpSource FOR this»
+«ENDFILE»
+«REM»
+«FILE name.toString() + "/" + name.toString() + ".Designer.cs" CSHARP_OUTLET-»
+«ENDFILE»
+«ENDREM»
+
+«REM»Adatleírók generálása azon komponensekhez, amelyekhez kapcsolódunk.«ENDREM»
+«FOREACH connectsTo AS c»
+«EXPAND csharpClientDataDefninition(this) FOR c»
+«ENDFOREACH»
+
+«REM»Enumerációk legenerálása«ENDREM»
+«FILE name.toString() + "/Enums.cs" CSHARP_OUTLET-»
+«EXPAND enumsCsharpSource(this.namespace) FOR this.inArchitecture»
+«ENDFILE»
+
+«REM»WS-ben használt entitások generálása«ENDREM»
+«FOREACH this.persists AS e»
+«IF soamodel::Entity.isInstance(e)»
+«EXPAND CSharpBoundaryEntities::csharpBoundaryEntity(this.namespace) FOR e»
+«ENDIF»
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE enumsCsharpSource(String namespace) FOR soamodel::ServiceOrientedArchitecture»
+// Enumerations in «name»
+
+namespace «namespace»
+{
+	«FOREACH this.dataTypes AS enum -»
+	«IF soamodel::Enum.isInstance(enum) -»
+	public static class «enum.entityName()» 
+	{
+		«FOREACH ((soamodel::Enum)enum).literals AS literal -»
+		public const int «literal.name.toUpperCase()» = «literal.value»;
+		«ENDFOREACH-»
+	}
+	«ENDIF-»
+	«ENDFOREACH-»
+}
+«ENDDEFINE»
+
+«DEFINE csharpClientDataDefninition(soamodel::CSharpComponent component) FOR soamodel::ServiceComponent»
+«FILE component.name.toString() + "/" + this.name.toString() + "DataDefinition.cs" CSHARP_OUTLET-»
+// Client data definition of «this.name» for «component.name»
+
+namespace «component.namespace»
+{
+    using System.Runtime.Serialization;
+    
+    «FOREACH this.persists AS e»
+    «IF soamodel::Entity.isInstance(e)»
+   
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "3.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="«e.entityFullBoundaryCSharpName()»", Namespace="http://schemas.datacontract.org/2004/07/Server")]
+    public partial class «e.entityFullBoundaryCSharpName()» : object, System.Runtime.Serialization.IExtensibleDataObject
+    {       
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData { get; set; }
+
+		«FOREACH e.attributes AS attrib»
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public «attrib.attributeType.entityFullBoundaryCSharpName()» «attrib.name» { get; set; }
+		«ENDFOREACH»
+    }
+    «ENDIF»
+    «ENDFOREACH» 
+}
+
+«ENDFILE»
+«ENDDEFINE»
