@@ -17,6 +17,6 @@ A short introduction and an example can be seen in [this document](http://www.sc
 ## Future plans
 
 The main goal of our project was to test the previously named technologies, and create a proof-of-concept tool for Service Oriented Architecture code generation. For this reason our short-term plans only cover bugfixes and minor improvements. On the other hand,  our long-term plans include other upgrades too:
-  * As the EMF-!IncQuery technology is a highly developing technology, in the future it wil give us more and more possibilities. We intend to create new validation constraints with the use of the new features of the future !IncQuery releases
+  * As the EMF-IncQuery technology is a highly developing technology, in the future it wil give us more and more possibilities. We intend to create new validation constraints with the use of the new features of the future IncQuery releases
   * Create a more user-friendly environment for the modelling and code generation workflow
   * Create an update site
